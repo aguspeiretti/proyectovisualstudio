@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Nevanta';
+  src: url('/fonts/Nevanta-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Nevanta';
+  src: url('/fonts/Nevanta-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Nevanta';
+  src: url('/fonts/Nevanta-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MozillaText';
+  src: url('/fonts/MozillaText-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MozillaText';
+  src: url('/fonts/MozillaText-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MozillaText';
+  src: url('/fonts/MozillaText-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'MozillaText', sans-serif;
+  font-weight: 400;
+  background: #0c3838;
+  color: #f0ede3;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+input, textarea {
+  font-family: 'MozillaText', sans-serif;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(240, 237, 227, 0.4);
+}
