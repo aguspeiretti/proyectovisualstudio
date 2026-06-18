@@ -24,7 +24,7 @@ export default function Contacto() {
       }} />
 
       {/* Contenido principal */}
-      <div style={{ flex: 1, display: 'flex', position: 'relative', zIndex: 2 }}>
+      <div style={{ flex: 1, display: 'flex', maxWidth: '1600px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 2 }}>
 
         {/* Izquierda — datos */}
         <div style={{
@@ -167,6 +167,7 @@ export default function Contacto() {
       {/* Footer */}
       <div style={{
         position: 'relative', zIndex: 2,
+        maxWidth: '1600px', margin: '0 auto', width: '100%',
         padding: '14px 28px',
         fontFamily: 'MozillaText, sans-serif',
         fontSize: '0.82rem', fontWeight: 300,
