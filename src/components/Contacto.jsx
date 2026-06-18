@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Reveal from './Reveal';
 
 const inputStyle = {
   width: '100%',
@@ -59,34 +60,48 @@ export default function Contacto() {
           flexDirection: 'column',
           justifyContent: 'center',
         }}>
-          <p style={{
-            fontFamily: 'MozillaText, sans-serif',
-            fontSize: '1.1rem',
-            color: '#f0ede3',
-            lineHeight: 1.45,
-            marginBottom: '32px',
-          }}>
-            Listo para el salto? <strong style={{ fontWeight: 700 }}>Hablemos!</strong>
-          </p>
+          <Reveal>
+            <h2 style={{
+              fontFamily: 'Nevanta, sans-serif',
+              fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+              fontWeight: 700,
+              color: '#f0ede3',
+              lineHeight: 1.1,
+              textTransform: 'uppercase',
+              marginBottom: '32px',
+            }}>
+              ¿Listo para<br />el salto? <span style={{ color: '#e8621a' }}>Hablemos!</span>
+            </h2>
+          </Reveal>
 
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
-            {[
-              { icon: '◎', text: '@visualstudio.es' },
-              { icon: '▣', text: '@visual studio españa' },
-              { icon: '✆', text: '+34 617909696 | +34 603218396' },
-              { icon: '✉', text: 'somosvisualstudio@gmail.com' },
-            ].map(({ icon, text }) => (
-              <li key={text} style={{
-                display: 'flex', alignItems: 'center', gap: '10px',
-                fontFamily: 'MozillaText, sans-serif',
-                fontSize: '0.85rem', fontWeight: 300,
-                color: '#f0ede3',
-              }}>
-                <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>{icon}</span>
-                {text}
-              </li>
-            ))}
-          </ul>
+          <Reveal delay={0.15}>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {[
+                { icon: '◎', text: '@visualstudio.es' },
+                { icon: '▣', text: '@visual studio españa' },
+                { icon: '✆', text: '+34 617909696 | +34 603218396' },
+                { icon: '✉', text: 'somosvisualstudio@gmail.com' },
+              ].map(({ icon, text }) => (
+                <li key={text} style={{
+                  display: 'flex', alignItems: 'center', gap: '12px',
+                  fontFamily: 'MozillaText, sans-serif',
+                  fontSize: '0.85rem', fontWeight: 300,
+                  color: '#f0ede3',
+                }}>
+                  <span aria-hidden="true" style={{
+                    width: '30px', height: '30px',
+                    borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                    background: 'rgba(232,98,26,0.18)',
+                    color: '#ff8a3d',
+                    fontSize: '0.85rem',
+                  }}>{icon}</span>
+                  {text}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
 
         {/* Derecha — formulario */}
