@@ -52,7 +52,7 @@ export default function Contacto() {
       }} />
 
       {/* Contenido principal */}
-      <div className="flex flex-col md:flex-row" style={{ flex: 1, maxWidth: '1600px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+      <div className="flex flex-col md:flex-row" style={{ flex: 1, width: '100%', position: 'relative', zIndex: 2 }}>
 
         {/* Izquierda — datos */}
         <div className="w-full md:w-[38%] px-6 py-10 md:px-11 md:py-12" style={{
@@ -206,7 +206,7 @@ export default function Contacto() {
       {/* Footer */}
       <div style={{
         position: 'relative', zIndex: 2,
-        maxWidth: '1600px', margin: '0 auto', width: '100%',
+        width: '100%',
         padding: '14px 28px',
         fontFamily: 'MozillaText, sans-serif',
         fontSize: '0.82rem', fontWeight: 300,

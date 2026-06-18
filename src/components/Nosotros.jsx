@@ -17,7 +17,7 @@ export default function Nosotros() {
 
   return (
     <section id="nosotros" className="md:min-h-screen" style={{ paddingTop: '56px' }}>
-      <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
+      <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]">
 
         {/* Video izquierda */}
         <div className="w-full md:w-[58%] min-h-[280px] md:min-h-0" style={{

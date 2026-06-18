@@ -3,7 +3,7 @@ import Reveal from './Reveal';
 export default function Home() {
   return (
     <section id="home" className="md:min-h-screen" style={{ paddingTop: '56px' }}>
-      <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
+      <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]">
 
         {/* Panel izquierdo crema */}
         <div className="w-full md:w-[34%] px-6 py-12 md:px-9" style={{

@@ -35,8 +35,6 @@ export default function Navbar() {
       borderBottom: '1px solid rgba(255,255,255,0.07)',
     }}>
       <div style={{
-        maxWidth: '1600px',
-        margin: '0 auto',
         height: '56px',
         display: 'flex',
         alignItems: 'center',
