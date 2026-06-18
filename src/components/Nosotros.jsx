@@ -2,14 +2,13 @@ import { useState } from 'react';
 import Reveal from './Reveal';
 
 const SERVICIOS = [
-  { title: 'Estrategia y Consultoría', icon: '◆', sub: [] },
+  { title: 'Estrategia y Consultoría', sub: [] },
   {
     title: 'Branding y Diseño',
-    icon: '✦',
     sub: ['Identidad visual', 'Rebranding', 'Manual de marca', 'Diseño editorial', 'Packaging', 'Diseño gráfico', 'Ilustración', 'Murales corporativos', 'Señalética'],
   },
-  { title: 'Comunicación Digital', icon: '◎', sub: [] },
-  { title: 'Producción Audiovisual', icon: '▶', sub: [] },
+  { title: 'Comunicación Digital', sub: [] },
+  { title: 'Producción Audiovisual', sub: [] },
 ];
 
 export default function Nosotros() {
@@ -77,74 +76,54 @@ export default function Nosotros() {
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: '12px' }}>
-            {SERVICIOS.map(({ title, icon, sub }, i) => {
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {SERVICIOS.map(({ title, sub }, i) => {
               const isOpen = open === title;
               const panelId = `servicio-panel-${title.replace(/\s+/g, '-')}`;
               return (
-                <Reveal key={title} delay={i * 0.08}>
-                  <div
-                    className="transition-transform duration-200 hover:-translate-y-1"
-                    style={{
-                      borderRadius: '14px',
-                      border: '1px solid rgba(12,56,56,0.12)',
-                      background: isOpen ? '#0c3838' : 'rgba(12,56,56,0.04)',
-                      padding: '16px 16px',
-                      height: '100%',
-                      transition: 'background 0.25s ease',
-                    }}
-                  >
+                <Reveal key={title} delay={i * 0.06}>
+                  <li>
                     <button
                       onClick={() => sub.length && setOpen(isOpen ? null : title)}
                       aria-expanded={sub.length ? isOpen : undefined}
                       aria-controls={sub.length ? panelId : undefined}
+                      className="transition-colors duration-200 hover:opacity-80"
                       style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: '10px',
-                        width: '100%',
+                        fontFamily: 'MozillaText, sans-serif',
+                        fontSize: '1rem',
+                        fontWeight: isOpen ? 700 : 400,
+                        color: isOpen ? '#0c3838' : '#156b60',
+                        letterSpacing: '0.01em',
+                        display: 'block',
                         cursor: sub.length ? 'pointer' : 'default',
+                        padding: 0,
                         background: 'none',
                         border: 'none',
-                        padding: 0,
                         textAlign: 'left',
                       }}
                     >
-                      <span aria-hidden="true" style={{
-                        fontSize: '1.1rem',
-                        color: isOpen ? '#ff8a3d' : '#e8621a',
-                        lineHeight: 1.3,
-                      }}>{icon}</span>
-                      <span style={{
-                        fontFamily: 'MozillaText, sans-serif',
-                        fontSize: '0.95rem',
-                        fontWeight: isOpen ? 700 : 500,
-                        color: isOpen ? '#f0ede3' : '#0c3838',
-                        letterSpacing: '0.01em',
-                      }}>
-                        {title}
-                      </span>
+                      {title}
                     </button>
 
                     {isOpen && sub.length > 0 && (
-                      <ul id={panelId} style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '26px' }}>
+                      <ul id={panelId} style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
                         {sub.map(item => (
                           <li key={item} style={{
                             fontFamily: 'MozillaText, sans-serif',
-                            fontSize: '0.8rem',
+                            fontSize: '0.85rem',
                             fontWeight: 300,
-                            color: 'rgba(240,237,227,0.85)',
+                            color: '#0c3838',
                           }}>
                             {item}
                           </li>
                         ))}
                       </ul>
                     )}
-                  </div>
+                  </li>
                 </Reveal>
               );
             })}
-          </div>
+          </ul>
         </div>
       </div>
     </section>
