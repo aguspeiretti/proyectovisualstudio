@@ -18,7 +18,7 @@ export default function Nosotros() {
 
       {/* Video izquierda */}
       <div style={{
-        width: '54%',
+        width: '58%',
         backgroundColor: '#141414',
         position: 'relative',
         display: 'flex',
@@ -55,7 +55,7 @@ export default function Nosotros() {
 
       {/* Servicios derecha */}
       <div style={{
-        width: '46%',
+        width: '42%',
         backgroundColor: '#f0ede3',
         display: 'flex',
         flexDirection: 'column',

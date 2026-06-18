@@ -12,14 +12,14 @@ export default function Contacto() {
       flexDirection: 'column',
     }}>
 
-      {/* Círculo naranja esquina inferior izquierda */}
+      {/* Eclipse naranja esquina inferior izquierda */}
       <div style={{
         position: 'absolute',
-        bottom: '-100px', left: '-100px',
-        width: '380px', height: '380px',
+        bottom: '-180px', left: '-180px',
+        width: '480px', height: '480px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle at 40% 40%, #e8621a 0%, #b03a00 55%, transparent 80%)',
-        opacity: 0.8,
+        background: 'radial-gradient(circle at 62% 38%, transparent 58%, #ff8a3d 64%, #e8621a 68%, #7a2c00 74%, transparent 78%)',
+        boxShadow: '0 0 60px 10px rgba(232, 98, 26, 0.25)',
         pointerEvents: 'none',
       }} />
 
@@ -101,7 +101,7 @@ export default function Contacto() {
                   }}>{label}</label>
                   <input type={type} placeholder={placeholder} style={{
                     width: '100%',
-                    background: 'rgba(10,55,50,0.6)',
+                    background: 'rgba(255,255,255,0.16)',
                     border: 'none', borderRadius: '8px',
                     padding: '10px 14px',
                     fontSize: '0.85rem', fontWeight: 300,
@@ -123,7 +123,7 @@ export default function Contacto() {
               }}>TELÉFONO</label>
               <input type="tel" placeholder="+34 617909696" style={{
                 width: '100%',
-                background: 'rgba(10,55,50,0.6)',
+                background: 'rgba(255,255,255,0.16)',
                 border: 'none', borderRadius: '8px',
                 padding: '10px 14px',
                 fontSize: '0.85rem', fontWeight: 300,
@@ -136,7 +136,7 @@ export default function Contacto() {
             <div style={{ marginBottom: '22px' }}>
               <textarea rows={5} placeholder="¿En qué podemos ayudarte?" style={{
                 width: '100%',
-                background: 'rgba(10,55,50,0.6)',
+                background: 'rgba(255,255,255,0.16)',
                 border: 'none', borderRadius: '8px',
                 padding: '10px 14px',
                 fontSize: '0.85rem', fontWeight: 300,
