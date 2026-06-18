@@ -37,15 +37,18 @@ export default function Portfolio() {
         />
 
         {/* Play */}
-        <button style={{
-          position: 'relative', zIndex: 5,
-          width: '68px', height: '68px',
-          borderRadius: '50%',
-          border: '2px solid rgba(240,237,227,0.8)',
-          background: 'rgba(240,237,227,0.1)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backdropFilter: 'blur(6px)',
-        }}>
+        <button
+          aria-label="Reproducir compilado de trabajos"
+          className="transition-transform duration-200 hover:scale-110"
+          style={{
+            position: 'relative', zIndex: 5,
+            width: '68px', height: '68px',
+            borderRadius: '50%',
+            border: '2px solid rgba(240,237,227,0.8)',
+            background: 'rgba(240,237,227,0.1)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            backdropFilter: 'blur(6px)',
+          }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="#f0ede3" style={{ marginLeft: '4px' }}>
             <path d="M8 5v14l11-7z" />
           </svg>

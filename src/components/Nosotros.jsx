@@ -39,14 +39,17 @@ export default function Nosotros() {
           </p>
 
           {/* Play button */}
-          <button style={{
-            width: '58px', height: '58px',
-            borderRadius: '50%',
-            border: '2px solid rgba(240,237,227,0.75)',
-            background: 'rgba(240,237,227,0.1)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backdropFilter: 'blur(4px)',
-          }}>
+          <button
+            aria-label="Reproducir video de presentación"
+            className="transition-transform duration-200 hover:scale-110"
+            style={{
+              width: '58px', height: '58px',
+              borderRadius: '50%',
+              border: '2px solid rgba(240,237,227,0.75)',
+              background: 'rgba(240,237,227,0.1)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              backdropFilter: 'blur(4px)',
+            }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#f0ede3" style={{ marginLeft: '3px' }}>
               <path d="M8 5v14l11-7z" />
             </svg>
@@ -76,15 +79,19 @@ export default function Nosotros() {
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {SERVICIOS.map(({ title, sub }) => {
               const isOpen = open === title;
+              const panelId = `servicio-panel-${title.replace(/\s+/g, '-')}`;
               return (
                 <li key={title}>
                   <button
                     onClick={() => sub.length && setOpen(isOpen ? null : title)}
+                    aria-expanded={sub.length ? isOpen : undefined}
+                    aria-controls={sub.length ? panelId : undefined}
+                    className="transition-colors duration-200 hover:opacity-80"
                     style={{
                       fontFamily: 'MozillaText, sans-serif',
                       fontSize: '1rem',
                       fontWeight: isOpen ? 700 : 400,
-                      color: isOpen ? '#0c3838' : '#1a7a6e',
+                      color: isOpen ? '#0c3838' : '#156b60',
                       letterSpacing: '0.01em',
                       display: 'block',
                       cursor: sub.length ? 'pointer' : 'default',
@@ -98,7 +105,7 @@ export default function Nosotros() {
                   </button>
 
                   {isOpen && sub.length > 0 && (
-                    <ul style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                    <ul id={panelId} style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
                       {sub.map(item => (
                         <li key={item} style={{
                           fontFamily: 'MozillaText, sans-serif',

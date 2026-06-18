@@ -25,7 +25,13 @@ export default function Home() {
             <span style={{ fontWeight: 700 }}>próxima misión?</span>
           </h1>
 
-          <div style={{ fontSize: '1.6rem', color: '#0c3838', marginBottom: '18px', lineHeight: 1 }}>↙</div>
+          <div
+            aria-hidden="true"
+            style={{
+              fontSize: '1.6rem', color: '#0c3838', marginBottom: '18px', lineHeight: 1,
+              display: 'inline-block', animation: 'gentle-bounce 2s ease-in-out infinite',
+            }}
+          >↙</div>
 
           <p style={{
             fontFamily: 'MozillaText, sans-serif',

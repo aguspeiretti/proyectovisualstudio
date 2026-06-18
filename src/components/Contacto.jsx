@@ -1,4 +1,32 @@
+import { useState } from 'react';
+
+const inputStyle = {
+  width: '100%',
+  background: 'rgba(255,255,255,0.16)',
+  border: 'none', borderRadius: '8px',
+  padding: '10px 14px',
+  fontSize: '0.85rem', fontWeight: 300,
+  color: '#f0ede3',
+  outline: 'none',
+  transition: 'background 0.2s ease',
+};
+
+const labelStyle = {
+  fontFamily: 'MozillaText, sans-serif',
+  fontSize: '0.65rem', fontWeight: 400,
+  letterSpacing: '0.18em',
+  color: 'rgba(240,237,227,0.62)',
+  display: 'block', marginBottom: '6px',
+};
+
 export default function Contacto() {
+  const [status, setStatus] = useState('idle');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStatus('sent');
+  };
+
   return (
     <section id="contacto" style={{
       minHeight: '100vh',
@@ -73,7 +101,7 @@ export default function Contacto() {
           padding: '52px 44px',
         }}>
           <form
-            onSubmit={e => e.preventDefault()}
+            onSubmit={handleSubmit}
             style={{
               width: '100%',
               maxWidth: '500px',
@@ -88,77 +116,78 @@ export default function Contacto() {
             {/* Fila nombre + email */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
               {[
-                { label: 'NOMBRE', type: 'text', placeholder: 'Tu nombre' },
-                { label: 'EMAIL', type: 'email', placeholder: 'ejemplo@mail.com' },
-              ].map(({ label, type, placeholder }) => (
-                <div key={label}>
-                  <label style={{
-                    fontFamily: 'MozillaText, sans-serif',
-                    fontSize: '0.65rem', fontWeight: 400,
-                    letterSpacing: '0.18em',
-                    color: 'rgba(240,237,227,0.55)',
-                    display: 'block', marginBottom: '6px',
-                  }}>{label}</label>
-                  <input type={type} placeholder={placeholder} style={{
-                    width: '100%',
-                    background: 'rgba(255,255,255,0.16)',
-                    border: 'none', borderRadius: '8px',
-                    padding: '10px 14px',
-                    fontSize: '0.85rem', fontWeight: 300,
-                    color: '#f0ede3',
-                    outline: 'none',
-                  }} />
+                { id: 'contacto-nombre', label: 'NOMBRE', type: 'text', placeholder: 'Tu nombre' },
+                { id: 'contacto-email', label: 'EMAIL', type: 'email', placeholder: 'ejemplo@mail.com' },
+              ].map(({ id, label, type, placeholder }) => (
+                <div key={id}>
+                  <label htmlFor={id} style={labelStyle}>{label}</label>
+                  <input
+                    id={id}
+                    name={id}
+                    type={type}
+                    required
+                    placeholder={placeholder}
+                    className="focus:bg-white/25"
+                    style={inputStyle}
+                  />
                 </div>
               ))}
             </div>
 
             {/* Teléfono */}
             <div style={{ marginBottom: '14px' }}>
-              <label style={{
-                fontFamily: 'MozillaText, sans-serif',
-                fontSize: '0.65rem', fontWeight: 400,
-                letterSpacing: '0.18em',
-                color: 'rgba(240,237,227,0.55)',
-                display: 'block', marginBottom: '6px',
-              }}>TELÉFONO</label>
-              <input type="tel" placeholder="+34 617909696" style={{
-                width: '100%',
-                background: 'rgba(255,255,255,0.16)',
-                border: 'none', borderRadius: '8px',
-                padding: '10px 14px',
-                fontSize: '0.85rem', fontWeight: 300,
-                color: '#f0ede3',
-                outline: 'none',
-              }} />
+              <label htmlFor="contacto-telefono" style={labelStyle}>TELÉFONO</label>
+              <input
+                id="contacto-telefono"
+                name="contacto-telefono"
+                type="tel"
+                placeholder="+34 617909696"
+                className="focus:bg-white/25"
+                style={inputStyle}
+              />
             </div>
 
             {/* Mensaje */}
             <div style={{ marginBottom: '22px' }}>
-              <textarea rows={5} placeholder="¿En qué podemos ayudarte?" style={{
-                width: '100%',
-                background: 'rgba(255,255,255,0.16)',
-                border: 'none', borderRadius: '8px',
-                padding: '10px 14px',
-                fontSize: '0.85rem', fontWeight: 300,
-                color: '#f0ede3',
-                outline: 'none', resize: 'none',
-              }} />
+              <label htmlFor="contacto-mensaje" style={labelStyle}>MENSAJE</label>
+              <textarea
+                id="contacto-mensaje"
+                name="contacto-mensaje"
+                rows={5}
+                required
+                placeholder="¿En qué podemos ayudarte?"
+                className="focus:bg-white/25"
+                style={{ ...inputStyle, resize: 'none' }}
+              />
             </div>
 
             {/* Botón */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <button type="submit" style={{
-                background: '#f0ede3',
-                color: '#0c3838',
-                borderRadius: '999px',
-                padding: '11px 44px',
-                fontFamily: 'MozillaText, sans-serif',
-                fontWeight: 700,
-                fontSize: '0.75rem',
-                letterSpacing: '0.2em',
-              }}>
-                ENVIAR MENSAJE
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+              <button
+                type="submit"
+                disabled={status === 'sent'}
+                className="transition-transform duration-200 hover:scale-105 disabled:cursor-default disabled:opacity-70 disabled:hover:scale-100"
+                style={{
+                  background: '#f0ede3',
+                  color: '#0c3838',
+                  borderRadius: '999px',
+                  padding: '11px 44px',
+                  fontFamily: 'MozillaText, sans-serif',
+                  fontWeight: 700,
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.2em',
+                }}>
+                {status === 'sent' ? 'MENSAJE ENVIADO ✓' : 'ENVIAR MENSAJE'}
               </button>
+              {status === 'sent' && (
+                <p role="status" style={{
+                  fontFamily: 'MozillaText, sans-serif',
+                  fontSize: '0.75rem', fontWeight: 300,
+                  color: '#f0ede3',
+                }}>
+                  ¡Gracias! Te responderemos a la brevedad.
+                </p>
+              )}
             </div>
           </form>
         </div>
@@ -171,7 +200,7 @@ export default function Contacto() {
         padding: '14px 28px',
         fontFamily: 'MozillaText, sans-serif',
         fontSize: '0.82rem', fontWeight: 300,
-        color: 'rgba(240,237,227,0.4)',
+        color: 'rgba(240,237,227,0.62)',
       }}>
         // UniversoVisual
       </div>

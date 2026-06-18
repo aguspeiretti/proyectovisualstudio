@@ -41,8 +41,12 @@ export default function Navbar() {
       }}>
 
         {/* Logo */}
-        <a href="#home" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/logo-icon.png" alt="logo" style={{ height: '34px', width: 'auto', display: 'block' }} />
+        <a
+          href="#home"
+          className="transition-opacity duration-200 hover:opacity-75"
+          style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+        >
+          <img src="/logo-icon.png" alt="Visual Studio" style={{ height: '34px', width: 'auto', display: 'block' }} />
           <span style={{ fontFamily: 'MozillaText, sans-serif', fontSize: '0.82rem', letterSpacing: '0.2em', color: '#f0ede3' }}>
             <strong style={{ fontWeight: 700 }}>VISUAL</strong>
             {' '}
@@ -65,6 +69,8 @@ export default function Navbar() {
                 <a
                   href={`#${label.toLowerCase()}`}
                   onClick={() => setActive(label)}
+                  aria-current={isActive ? 'true' : undefined}
+                  className="transition-opacity duration-200 hover:opacity-75"
                   style={{
                     fontFamily: 'MozillaText, sans-serif',
                     fontSize: '0.75rem',
@@ -73,7 +79,7 @@ export default function Navbar() {
                     color: '#f0ede3',
                     paddingBottom: '3px',
                     borderBottom: isActive ? '1.5px solid #f0ede3' : '1.5px solid transparent',
-                    transition: 'border-color 0.2s',
+                    transition: 'border-color 0.2s, opacity 0.2s',
                   }}
                 >
                   {label}
