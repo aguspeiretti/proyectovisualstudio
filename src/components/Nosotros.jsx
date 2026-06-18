@@ -28,7 +28,7 @@ export default function Nosotros() {
         }}>
           <p style={{
             position: 'absolute',
-            top: '20px', left: '20px',
+            top: '20px', left: 'var(--gutter)',
             fontFamily: 'MozillaText, sans-serif',
             fontSize: '0.72rem',
             fontWeight: 400,
@@ -57,11 +57,12 @@ export default function Nosotros() {
         </div>
 
         {/* Servicios derecha */}
-        <div className="w-full md:w-[42%] px-6 py-12 md:px-11" style={{
+        <div className="w-full md:w-[42%]" style={{
           backgroundColor: '#f0ede3',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          padding: 'clamp(40px, 8vh, 80px) var(--gutter)',
         }}>
           <Reveal>
             <h2 style={{

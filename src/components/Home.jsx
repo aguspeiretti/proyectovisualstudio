@@ -6,11 +6,12 @@ export default function Home() {
       <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]">
 
         {/* Panel izquierdo crema */}
-        <div className="w-full md:w-[34%] px-6 py-12 md:px-9" style={{
+        <div className="w-full md:w-[34%]" style={{
           backgroundColor: '#f0ede3',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          padding: 'clamp(40px, 8vh, 80px) var(--gutter)',
         }}>
           <Reveal>
             <p style={{

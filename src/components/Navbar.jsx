@@ -39,7 +39,7 @@ export default function Navbar() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 20px',
+        padding: '0 var(--gutter)',
         position: 'relative',
       }}>
 
@@ -134,7 +134,7 @@ export default function Navbar() {
           display: 'flex', flexDirection: 'column',
           backgroundColor: '#0c3838',
           borderTop: '1px solid rgba(255,255,255,0.07)',
-          padding: '8px 20px 16px',
+          padding: '8px var(--gutter) 16px',
         }}>
           {NAV_LINKS.map(label => {
             const isActive = active === label;

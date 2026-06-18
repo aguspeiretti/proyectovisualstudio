@@ -28,10 +28,10 @@ export default function Portfolio() {
         }}
       />
 
-      <div className="min-h-[400px] md:min-h-[600px]" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '28px', padding: '40px 20px' }}>
+      <div className="min-h-[400px] md:min-h-[600px]" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '28px', padding: 'clamp(40px, 8vh, 80px) var(--gutter)' }}>
 
         <p style={{
-          position: 'absolute', top: '20px', left: '20px',
+          position: 'absolute', top: '20px', left: 'var(--gutter)',
           fontFamily: 'MozillaText, sans-serif',
           fontSize: '0.72rem', fontWeight: 400,
           color: 'rgba(240,237,227,0.85)',

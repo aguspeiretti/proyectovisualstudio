@@ -43,6 +43,10 @@
   padding: 0;
 }
 
+:root {
+  --gutter: clamp(24px, 5vw, 96px);
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;

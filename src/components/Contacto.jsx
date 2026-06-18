@@ -55,10 +55,11 @@ export default function Contacto() {
       <div className="flex flex-col md:flex-row" style={{ flex: 1, width: '100%', position: 'relative', zIndex: 2 }}>
 
         {/* Izquierda — datos */}
-        <div className="w-full md:w-[38%] px-6 py-10 md:px-11 md:py-12" style={{
+        <div className="w-full md:w-[38%]" style={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          padding: 'clamp(40px, 8vh, 80px) var(--gutter)',
         }}>
           <Reveal>
             <h2 style={{
@@ -105,10 +106,11 @@ export default function Contacto() {
         </div>
 
         {/* Derecha — formulario */}
-        <div className="w-full md:w-[62%] px-6 py-10 md:px-11 md:py-12" style={{
+        <div className="w-full md:w-[62%]" style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          padding: 'clamp(40px, 8vh, 80px) var(--gutter)',
         }}>
           <form
             onSubmit={handleSubmit}
@@ -207,7 +209,7 @@ export default function Contacto() {
       <div style={{
         position: 'relative', zIndex: 2,
         width: '100%',
-        padding: '14px 28px',
+        padding: '14px var(--gutter)',
         fontFamily: 'MozillaText, sans-serif',
         fontSize: '0.82rem', fontWeight: 300,
         color: 'rgba(240,237,227,0.62)',
