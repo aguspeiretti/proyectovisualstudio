@@ -1,16 +1,14 @@
 export default function Home() {
   return (
-    <section id="home" style={{ minHeight: '100vh', paddingTop: '56px' }}>
-      <div style={{ display: 'flex', maxWidth: '1600px', margin: '0 auto', minHeight: 'calc(100vh - 56px)' }}>
+    <section id="home" className="md:min-h-screen" style={{ paddingTop: '56px' }}>
+      <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
 
         {/* Panel izquierdo crema */}
-        <div style={{
-          width: '34%',
+        <div className="w-full md:w-[34%] px-6 py-12 md:px-9" style={{
           backgroundColor: '#f0ede3',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '48px 36px',
         }}>
           <h1 style={{
             fontFamily: 'Nevanta, sans-serif',
@@ -45,8 +43,7 @@ export default function Home() {
         </div>
 
         {/* Panel derecho — foto */}
-        <div style={{
-          width: '66%',
+        <div className="w-full md:w-[66%] min-h-[280px] md:min-h-0" style={{
           backgroundColor: '#d6d3cb',
           display: 'flex',
           alignItems: 'center',

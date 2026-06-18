@@ -14,12 +14,11 @@ export default function Nosotros() {
   const [open, setOpen] = useState('Branding y Diseño');
 
   return (
-    <section id="nosotros" style={{ minHeight: '100vh', paddingTop: '56px' }}>
-      <div style={{ display: 'flex', maxWidth: '1600px', margin: '0 auto', minHeight: 'calc(100vh - 56px)' }}>
+    <section id="nosotros" className="md:min-h-screen" style={{ paddingTop: '56px' }}>
+      <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]" style={{ maxWidth: '1600px', margin: '0 auto' }}>
 
         {/* Video izquierda */}
-        <div style={{
-          width: '58%',
+        <div className="w-full md:w-[58%] min-h-[280px] md:min-h-0" style={{
           backgroundColor: '#141414',
           position: 'relative',
           display: 'flex',
@@ -57,13 +56,11 @@ export default function Nosotros() {
         </div>
 
         {/* Servicios derecha */}
-        <div style={{
-          width: '42%',
+        <div className="w-full md:w-[42%] px-6 py-12 md:px-11" style={{
           backgroundColor: '#f0ede3',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '52px 44px',
         }}>
           <h2 style={{
             fontFamily: 'Nevanta, sans-serif',

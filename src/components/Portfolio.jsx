@@ -1,14 +1,13 @@
 export default function Portfolio() {
   return (
-    <section id="portfolio" style={{
-      minHeight: '100vh',
+    <section id="portfolio" className="md:min-h-screen" style={{
       paddingTop: '56px',
       backgroundColor: '#141414',
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
     }}>
-      <div style={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '600px' }}>
+      <div className="min-h-[400px] md:min-h-[600px]" style={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
         <p style={{
           position: 'absolute', top: '20px', left: '20px',

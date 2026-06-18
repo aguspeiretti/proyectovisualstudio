@@ -28,8 +28,7 @@ export default function Contacto() {
   };
 
   return (
-    <section id="contacto" style={{
-      minHeight: '100vh',
+    <section id="contacto" className="md:min-h-screen" style={{
       paddingTop: '56px',
       backgroundImage: 'url(/fondo.jpg)',
       backgroundSize: 'cover',
@@ -52,15 +51,13 @@ export default function Contacto() {
       }} />
 
       {/* Contenido principal */}
-      <div style={{ flex: 1, display: 'flex', maxWidth: '1600px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+      <div className="flex flex-col md:flex-row" style={{ flex: 1, maxWidth: '1600px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 2 }}>
 
         {/* Izquierda — datos */}
-        <div style={{
-          width: '38%',
+        <div className="w-full md:w-[38%] px-6 py-10 md:px-11 md:py-12" style={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '52px 44px',
         }}>
           <p style={{
             fontFamily: 'MozillaText, sans-serif',
@@ -93,12 +90,10 @@ export default function Contacto() {
         </div>
 
         {/* Derecha — formulario */}
-        <div style={{
-          width: '62%',
+        <div className="w-full md:w-[62%] px-6 py-10 md:px-11 md:py-12" style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '52px 44px',
         }}>
           <form
             onSubmit={handleSubmit}
@@ -114,7 +109,7 @@ export default function Contacto() {
             }}
           >
             {/* Fila nombre + email */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: '14px', marginBottom: '14px' }}>
               {[
                 { id: 'contacto-nombre', label: 'NOMBRE', type: 'text', placeholder: 'Tu nombre' },
                 { id: 'contacto-email', label: 'EMAIL', type: 'email', placeholder: 'ejemplo@mail.com' },
