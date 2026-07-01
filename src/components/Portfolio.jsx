@@ -22,7 +22,7 @@ function VideoCard({ id, categoria }) {
     <div className="relative rounded-[12px] overflow-hidden aspect-[9/16] bg-white/[0.04] border border-white/[0.08] group">
       {playing ? (
         <iframe
-          src={`https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`}
+          src={`https://player.vimeo.com/video/${id}?autoplay=1&loop=1&title=0&byline=0&portrait=0&dnt=1`}
           className="absolute inset-0 w-full h-full"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
