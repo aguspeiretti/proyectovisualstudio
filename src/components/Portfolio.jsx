@@ -8,6 +8,11 @@ const VIDEOS = [
   { id: '1206134935', categoria: 'Coctelería' },
   { id: '1206134831', categoria: 'Gastronomía' },
   { id: '1206134778', categoria: 'Gastronomía' },
+  { id: '1206134705', categoria: 'Gastronomía' },
+  { id: '1206134662', categoria: 'Coctelería' },
+  { id: '1206134626', categoria: 'Gastronomía' },
+  { id: '1206134588', categoria: 'Gastronomía' },
+  { id: '1206134553', categoria: 'Gastronomía' },
 ];
 
 function VideoCard({ id, categoria }) {
