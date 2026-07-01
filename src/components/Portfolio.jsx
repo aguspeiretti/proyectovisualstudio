@@ -19,7 +19,7 @@ function VideoCard({ id, categoria }) {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="relative rounded-[12px] overflow-hidden aspect-video bg-white/[0.04] border border-white/[0.08] group">
+    <div className="relative rounded-[12px] overflow-hidden aspect-[9/16] bg-white/[0.04] border border-white/[0.08] group">
       {playing ? (
         <iframe
           src={`https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`}
@@ -85,7 +85,7 @@ export default function Portfolio() {
         </Reveal>
 
         {/* Grilla */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[14px]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[14px]">
           {VIDEOS.map((video, i) => (
             <Reveal key={video.id} delay={i * 0.07}>
               <VideoCard id={video.id} categoria={video.categoria} />
