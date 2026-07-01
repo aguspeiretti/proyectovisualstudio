@@ -53,12 +53,12 @@ export default function Navbar() {
           href="#home"
           onClick={() => goTo('HOME')}
           className="flex items-center"
-          style={{ gap: 10, textDecoration: 'none', opacity: 1, transition: 'opacity 0.2s' }}
+          style={{ gap: 12, textDecoration: 'none', opacity: 1, transition: 'opacity 0.2s' }}
           onMouseEnter={e => e.currentTarget.style.opacity = 0.75}
           onMouseLeave={e => e.currentTarget.style.opacity = 1}
         >
-          <img src="/logo-icon.png" alt="Visual Studio" style={{ height: 32, width: 'auto', display: 'block' }} />
-          <span className="font-mozilla" style={{ fontSize: '0.8rem', letterSpacing: '0.22em', color: '#f0ede3' }}>
+          <img src="/logo-icon.png" alt="Visual Studio" style={{ height: 38, width: 'auto', display: 'block' }} />
+          <span className="font-mozilla" style={{ fontSize: '0.92rem', letterSpacing: '0.22em', color: '#f0ede3' }}>
             <strong style={{ fontWeight: 700 }}>VISUAL</strong>
             {' '}
             <span style={{ fontWeight: 300 }}>STUDIO</span>
