@@ -274,15 +274,8 @@ export default function Portfolio() {
           </Reveal>
         </div>
 
-        {/* Grilla — 3 columnas centradas */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(240px, 100%), 1fr))',
-          gap: 18,
-          maxWidth: 900,
-          margin: '0 auto',
-          width: '100%',
-        }}>
+        {/* Grilla — 5 columnas */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5" style={{ gap: 18 }}>
           {filtrados.map((video, i) => (
             <Reveal key={video.id} delay={Math.min(i * 0.06, 0.42)}>
               <VideoCard video={video} onPlay={() => setModalVideo(video)} />
