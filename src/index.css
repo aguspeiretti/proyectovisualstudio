@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand colours */
+  --color-cream:        #f0ede3;
+  --color-forest:       #0c3838;
+  --color-pine:         #1a7a6e;
+  --color-fern:         #156b60;
+  --color-ember:        #e8621a;
+  --color-ember-light:  #ff8a3d;
+  --color-jet:          #141414;
+  --color-pebble:       #d6d3cb;
+
+  /* Brand fonts */
+  --font-nevanta: 'Nevanta', sans-serif;
+  --font-mozilla: 'MozillaText', sans-serif;
+
+  /* Named animations */
+  --animate-gentle-bounce: gentle-bounce 2s ease-in-out infinite;
+}
+
 @font-face {
   font-family: 'Nevanta';
   src: url('/fonts/Nevanta-Light.otf') format('opentype');

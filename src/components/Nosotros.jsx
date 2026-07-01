@@ -15,69 +15,34 @@ export default function Nosotros() {
   const [open, setOpen] = useState('Branding y Diseño');
 
   return (
-    <section id="nosotros" className="md:min-h-screen" style={{ paddingTop: '56px' }}>
+    <section id="nosotros" className="md:min-h-screen pt-14">
       <div className="flex flex-col md:flex-row md:min-h-[calc(100vh-56px)]">
 
         {/* Video izquierda */}
-        <div className="w-full md:w-[58%] min-h-[280px] md:min-h-0" style={{
-          backgroundColor: '#141414',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <p style={{
-            position: 'absolute',
-            top: '20px', left: 'var(--gutter)',
-            fontFamily: 'MozillaText, sans-serif',
-            fontSize: '0.72rem',
-            fontWeight: 400,
-            color: 'rgba(240,237,227,0.85)',
-            letterSpacing: '0.03em',
-          }}>
+        <div className="w-full md:w-[58%] min-h-[280px] md:min-h-0 bg-jet relative flex items-center justify-center">
+          <p className="absolute top-5 left-[var(--gutter)] font-mozilla text-[0.72rem] font-normal text-cream/85 tracking-[0.03em]">
             *DESCRIPTIVO - PRESENTACIÓN (VIDEO)
           </p>
 
-          {/* Play button */}
           <button
             aria-label="Reproducir video de presentación"
-            className="transition-transform duration-200 hover:scale-110"
-            style={{
-              width: '58px', height: '58px',
-              borderRadius: '50%',
-              border: '2px solid rgba(240,237,227,0.75)',
-              background: 'rgba(240,237,227,0.1)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              backdropFilter: 'blur(4px)',
-            }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#f0ede3" style={{ marginLeft: '3px' }}>
+            className="transition-transform duration-200 hover:scale-110 w-[58px] h-[58px] rounded-full border-2 border-cream/75 bg-cream/10 flex items-center justify-center backdrop-blur-[4px]"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-cream ml-[3px]">
               <path d="M8 5v14l11-7z" />
             </svg>
           </button>
         </div>
 
         {/* Servicios derecha */}
-        <div className="w-full md:w-[42%]" style={{
-          backgroundColor: '#f0ede3',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: 'clamp(40px, 8vh, 80px) var(--gutter)',
-        }}>
+        <div className="w-full md:w-[42%] flex flex-col justify-center bg-cream py-[clamp(40px,8vh,80px)] px-[var(--gutter)]">
           <Reveal>
-            <h2 style={{
-              fontFamily: 'Nevanta, sans-serif',
-              fontSize: 'clamp(2rem, 4vw, 2.8rem)',
-              fontWeight: 700,
-              color: '#1a7a6e',
-              letterSpacing: '0.06em',
-              marginBottom: '28px',
-            }}>
+            <h2 className="font-nevanta text-[clamp(2rem,4vw,2.8rem)] font-bold text-pine tracking-[0.06em] mb-7">
               SERVICIOS
             </h2>
           </Reveal>
 
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <ul className="flex flex-col gap-3">
             {SERVICIOS.map(({ title, sub }, i) => {
               const isOpen = open === title;
               const panelId = `servicio-panel-${title.replace(/\s+/g, '-')}`;
@@ -88,33 +53,21 @@ export default function Nosotros() {
                       onClick={() => sub.length && setOpen(isOpen ? null : title)}
                       aria-expanded={sub.length ? isOpen : undefined}
                       aria-controls={sub.length ? panelId : undefined}
-                      className="transition-colors duration-200 hover:opacity-80"
-                      style={{
-                        fontFamily: 'MozillaText, sans-serif',
-                        fontSize: '1rem',
-                        fontWeight: isOpen ? 700 : 400,
-                        color: isOpen ? '#0c3838' : '#156b60',
-                        letterSpacing: '0.01em',
-                        display: 'block',
-                        cursor: sub.length ? 'pointer' : 'default',
-                        padding: 0,
-                        background: 'none',
-                        border: 'none',
-                        textAlign: 'left',
-                      }}
+                      className={[
+                        'font-mozilla text-[1rem] tracking-[0.01em] block text-left',
+                        'bg-transparent border-none p-0 transition-opacity duration-200 hover:opacity-80',
+                        isOpen
+                          ? 'font-bold text-forest cursor-default'
+                          : 'font-normal text-fern cursor-pointer',
+                      ].join(' ')}
                     >
                       {title}
                     </button>
 
                     {isOpen && sub.length > 0 && (
-                      <ul id={panelId} style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                      <ul id={panelId} className="mt-[6px] flex flex-col gap-[3px]">
                         {sub.map(item => (
-                          <li key={item} style={{
-                            fontFamily: 'MozillaText, sans-serif',
-                            fontSize: '0.85rem',
-                            fontWeight: 300,
-                            color: '#0c3838',
-                          }}>
+                          <li key={item} className="font-mozilla text-[0.85rem] font-light text-forest">
                             {item}
                           </li>
                         ))}

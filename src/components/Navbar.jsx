@@ -27,45 +27,30 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{
-      position: 'fixed',
-      top: 0, left: 0, right: 0,
-      zIndex: 100,
-      backgroundColor: '#0c3838',
-      borderBottom: '1px solid rgba(255,255,255,0.07)',
-    }}>
-      <div style={{
-        height: '56px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 var(--gutter)',
-        position: 'relative',
-      }}>
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-forest border-b border-white/[0.07]">
+      <div className="h-14 flex items-center justify-between relative px-[var(--gutter)]">
 
         {/* Logo */}
         <a
           href="#home"
           onClick={() => goTo('HOME')}
-          className="transition-opacity duration-200 hover:opacity-75"
-          style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+          className="flex items-center gap-[10px] transition-opacity duration-200 hover:opacity-75"
         >
-          <img src="/logo-icon.png" alt="Visual Studio" style={{ height: '34px', width: 'auto', display: 'block' }} />
-          <span style={{ fontFamily: 'MozillaText, sans-serif', fontSize: '0.82rem', letterSpacing: '0.2em', color: '#f0ede3' }}>
-            <strong style={{ fontWeight: 700 }}>VISUAL</strong>
+          <img src="/logo-icon.png" alt="Visual Studio" className="h-[34px] w-auto block" />
+          <span className="font-mozilla text-[0.82rem] tracking-[0.2em] text-cream">
+            <strong className="font-bold">VISUAL</strong>
             {' '}
-            <span style={{ fontWeight: 300 }}>STUDIO</span>
+            <span className="font-light">STUDIO</span>
           </span>
         </a>
 
         {/* Center + (desktop only) */}
-        <span className="hidden md:block" style={{
-          position: 'absolute', left: '50%', transform: 'translateX(-50%)',
-          color: 'rgba(240,237,227,0.25)', fontSize: '1.1rem', lineHeight: 1, userSelect: 'none',
-        }}>+</span>
+        <span className="hidden md:block absolute left-1/2 -translate-x-1/2 text-cream/25 text-[1.1rem] leading-none select-none">
+          +
+        </span>
 
         {/* Nav (desktop) */}
-        <ul className="hidden md:flex" style={{ alignItems: 'center', gap: '28px' }}>
+        <ul className="hidden md:flex items-center gap-7">
           {NAV_LINKS.map(label => {
             const isActive = active === label;
             return (
@@ -74,17 +59,11 @@ export default function Navbar() {
                   href={`#${label.toLowerCase()}`}
                   onClick={() => goTo(label)}
                   aria-current={isActive ? 'true' : undefined}
-                  className="transition-opacity duration-200 hover:opacity-75"
-                  style={{
-                    fontFamily: 'MozillaText, sans-serif',
-                    fontSize: '0.75rem',
-                    fontWeight: isActive ? 700 : 400,
-                    letterSpacing: '0.12em',
-                    color: '#f0ede3',
-                    paddingBottom: '3px',
-                    borderBottom: isActive ? '1.5px solid #f0ede3' : '1.5px solid transparent',
-                    transition: 'border-color 0.2s, opacity 0.2s',
-                  }}
+                  className={[
+                    'font-mozilla text-[0.75rem] tracking-[0.12em] text-cream pb-[3px]',
+                    'border-b-[1.5px] transition-[border-color,opacity] duration-200 hover:opacity-75',
+                    isActive ? 'font-bold border-cream' : 'font-normal border-transparent',
+                  ].join(' ')}
                 >
                   {label}
                 </a>
@@ -95,47 +74,26 @@ export default function Navbar() {
 
         {/* Hamburger (mobile) */}
         <button
-          className="flex md:hidden"
+          className="flex md:hidden flex-col justify-center gap-[5px] w-8 h-8"
           onClick={() => setMenuOpen(o => !o)}
           aria-label={menuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
-          style={{
-            flexDirection: 'column', justifyContent: 'center', gap: '5px',
-            width: '32px', height: '32px',
-          }}
         >
-          <span style={{
-            display: 'block', height: '2px', width: '100%', background: '#f0ede3',
-            transition: 'transform 0.2s ease',
-            transform: menuOpen ? 'translateY(7px) rotate(45deg)' : 'none',
-          }} />
-          <span style={{
-            display: 'block', height: '2px', width: '100%', background: '#f0ede3',
-            opacity: menuOpen ? 0 : 1, transition: 'opacity 0.2s ease',
-          }} />
-          <span style={{
-            display: 'block', height: '2px', width: '100%', background: '#f0ede3',
-            transition: 'transform 0.2s ease',
-            transform: menuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none',
-          }} />
+          <span className={`block h-[2px] w-full bg-cream transition-transform duration-200 ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
+          <span className={`block h-[2px] w-full bg-cream transition-opacity duration-200 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
+          <span className={`block h-[2px] w-full bg-cream transition-transform duration-200 ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
         </button>
 
         {/* Top-right ++ (desktop only) */}
-        <span className="hidden md:block" style={{
-          position: 'absolute', right: '-10px', top: '-21px',
-          color: 'rgba(240,237,227,0.25)', fontSize: '0.65rem', lineHeight: 1.4, userSelect: 'none',
-        }}>+<br/>+</span>
+        <span className="hidden md:block absolute -right-[10px] -top-[21px] text-cream/25 text-[0.65rem] leading-[1.4] select-none">
+          +<br/>+
+        </span>
       </div>
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <ul id="mobile-menu" className="md:hidden" style={{
-          display: 'flex', flexDirection: 'column',
-          backgroundColor: '#0c3838',
-          borderTop: '1px solid rgba(255,255,255,0.07)',
-          padding: '8px var(--gutter) 16px',
-        }}>
+        <ul id="mobile-menu" className="md:hidden flex flex-col bg-forest border-t border-white/[0.07] py-2 px-[var(--gutter)] pb-4">
           {NAV_LINKS.map(label => {
             const isActive = active === label;
             return (
@@ -144,15 +102,7 @@ export default function Navbar() {
                   href={`#${label.toLowerCase()}`}
                   onClick={() => goTo(label)}
                   aria-current={isActive ? 'true' : undefined}
-                  style={{
-                    display: 'block',
-                    fontFamily: 'MozillaText, sans-serif',
-                    fontSize: '0.85rem',
-                    fontWeight: isActive ? 700 : 400,
-                    letterSpacing: '0.12em',
-                    color: '#f0ede3',
-                    padding: '12px 0',
-                  }}
+                  className={`block font-mozilla text-[0.85rem] tracking-[0.12em] text-cream py-3 ${isActive ? 'font-bold' : 'font-normal'}`}
                 >
                   {label}
                 </a>

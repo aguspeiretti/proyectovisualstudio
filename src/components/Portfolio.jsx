@@ -4,40 +4,20 @@ const CATEGORIAS = ['Branding', 'Audiovisual', 'Digital', 'Packaging'];
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="md:min-h-screen" style={{
-      paddingTop: '56px',
-      backgroundColor: '#141414',
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
+    <section
+      id="portfolio"
+      className="md:min-h-screen pt-14 bg-jet relative overflow-hidden flex flex-col"
+    >
       {/* Blob decorativo */}
       <div
         aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '-10%', right: '-8%',
-          width: '500px', height: '500px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle at 60% 40%, #1a7a6e 0%, transparent 70%)',
-          opacity: 0.3,
-          filter: 'blur(40px)',
-          animation: 'drift 16s ease-in-out infinite',
-          pointerEvents: 'none',
-        }}
+        className="absolute -top-[10%] -right-[8%] w-[500px] h-[500px] rounded-full opacity-30 blur-[40px] pointer-events-none animate-[drift_16s_ease-in-out_infinite]"
+        style={{ background: 'radial-gradient(circle at 60% 40%, #1a7a6e 0%, transparent 70%)' }}
       />
 
-      <div className="min-h-[400px] md:min-h-[600px]" style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '28px', padding: 'clamp(40px, 8vh, 80px) var(--gutter)' }}>
+      <div className="min-h-[400px] md:min-h-[600px] relative flex flex-1 flex-col items-center justify-center gap-7 py-[clamp(40px,8vh,80px)] px-[var(--gutter)]">
 
-        <p style={{
-          position: 'absolute', top: '20px', left: 'var(--gutter)',
-          fontFamily: 'MozillaText, sans-serif',
-          fontSize: '0.72rem', fontWeight: 400,
-          color: 'rgba(240,237,227,0.85)',
-          letterSpacing: '0.03em',
-          zIndex: 10,
-        }}>
+        <p className="absolute top-5 left-[var(--gutter)] font-mozilla text-[0.72rem] font-normal text-cream/85 tracking-[0.03em] z-10">
           *COMPILADO DE TRABAJOS (VIDEO)
         </p>
 
@@ -45,65 +25,33 @@ export default function Portfolio() {
         <img
           src="/logo-icon.png"
           alt=""
-          style={{
-            position: 'absolute',
-            top: '50%', left: '50%',
-            transform: 'translate(-50%, -65%)',
-            width: '200px',
-            opacity: 0.15,
-            pointerEvents: 'none',
-            zIndex: 1,
-          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[65%] w-[200px] opacity-15 pointer-events-none z-[1]"
         />
 
         <Reveal>
-          <h2 style={{
-            fontFamily: 'Nevanta, sans-serif',
-            fontSize: 'clamp(2.2rem, 7vw, 5.5rem)',
-            fontWeight: 700,
-            lineHeight: 1.02,
-            textAlign: 'center',
-            color: '#f0ede3',
-            position: 'relative',
-            zIndex: 5,
-          }}>
-            Nuestro <span style={{ color: '#e8621a' }}>trabajo</span> habla
+          <h2 className="font-nevanta text-[clamp(2.2rem,7vw,5.5rem)] font-bold leading-[1.02] text-center text-cream relative z-[5]">
+            Nuestro <span className="text-ember">trabajo</span> habla
           </h2>
         </Reveal>
 
-        {/* Play */}
         <Reveal delay={0.15}>
           <button
             aria-label="Reproducir compilado de trabajos"
-            className="transition-transform duration-200 hover:scale-110"
-            style={{
-              position: 'relative', zIndex: 5,
-              width: '68px', height: '68px',
-              borderRadius: '50%',
-              border: '2px solid rgba(240,237,227,0.8)',
-              background: 'rgba(240,237,227,0.1)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              backdropFilter: 'blur(6px)',
-            }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#f0ede3" style={{ marginLeft: '4px' }}>
+            className="relative z-[5] w-[68px] h-[68px] rounded-full border-2 border-cream/80 bg-cream/10 flex items-center justify-center backdrop-blur-[6px] transition-transform duration-200 hover:scale-110"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" className="text-cream ml-[4px]">
               <path d="M8 5v14l11-7z" />
             </svg>
           </button>
         </Reveal>
 
         <Reveal delay={0.3}>
-          <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center', position: 'relative', zIndex: 5 }}>
+          <ul className="flex flex-wrap gap-[10px] justify-center relative z-[5]">
             {CATEGORIAS.map(cat => (
-              <li key={cat} style={{
-                fontFamily: 'MozillaText, sans-serif',
-                fontSize: '0.72rem',
-                fontWeight: 400,
-                letterSpacing: '0.08em',
-                color: '#f0ede3',
-                border: '1px solid rgba(240,237,227,0.3)',
-                borderRadius: '999px',
-                padding: '6px 18px',
-              }}>
+              <li
+                key={cat}
+                className="font-mozilla text-[0.72rem] font-normal tracking-[0.08em] text-cream border border-cream/30 rounded-full px-[18px] py-[6px]"
+              >
                 {cat}
               </li>
             ))}
