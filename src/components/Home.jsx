@@ -43,9 +43,11 @@ export default function Home() {
             className="absolute bottom-[10%] left-[10%] w-[300px] h-[300px] rounded-full opacity-40 blur-[30px] pointer-events-none animate-[drift_18s_ease-in-out_infinite_reverse]"
             style={{ background: 'radial-gradient(circle at 60% 60%, #1a7a6e 0%, transparent 70%)' }}
           />
-          <span className="relative z-[1] font-mozilla text-[0.72rem] tracking-[0.22em] uppercase text-forest opacity-30">
-            FOTO DEL EQUIPO
-          </span>
+          <img
+            src="/equipo.jpg"
+            alt="Equipo Visual Studio"
+            className="absolute inset-0 w-full h-full object-cover object-center relative z-[1]"
+          />
         </div>
       </div>
     </section>
