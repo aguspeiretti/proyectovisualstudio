@@ -15,43 +15,139 @@ const VIDEOS = [
   { id: '1206134553', categoria: 'Gastronomía' },
 ];
 
+const CATEGORIAS = ['Todos', ...new Set(VIDEOS.map(v => v.categoria))];
+
+function FilterPill({ label, active, onClick }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      aria-pressed={active}
+      className="font-mozilla font-bold uppercase transition-all duration-200"
+      style={{
+        fontSize: '0.65rem',
+        letterSpacing: '0.16em',
+        padding: '8px 20px',
+        borderRadius: '100px',
+        cursor: 'pointer',
+        border: active ? '1px solid #e8621a' : '1px solid rgba(255,255,255,0.15)',
+        background: active
+          ? '#e8621a'
+          : hovered
+          ? 'rgba(255,255,255,0.1)'
+          : 'rgba(255,255,255,0.05)',
+        color: active ? '#f0ede3' : 'rgba(240,237,227,0.7)',
+        boxShadow: active ? '0 4px 20px rgba(232,98,26,0.35)' : 'none',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        transform: active ? 'scale(1)' : hovered ? 'scale(1.03)' : 'scale(1)',
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
 function VideoCard({ id, categoria }) {
   const [playing, setPlaying] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="relative rounded-[12px] overflow-hidden aspect-[9/16] bg-white/[0.04] border border-white/[0.08] group">
+    <div
+      className="relative overflow-hidden"
+      style={{
+        aspectRatio: '9/16',
+        borderRadius: '16px',
+        border: hovered
+          ? '1px solid rgba(255,255,255,0.18)'
+          : '1px solid rgba(255,255,255,0.08)',
+        borderTop: '1px solid rgba(255,255,255,0.2)',
+        background: 'rgba(255,255,255,0.04)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        boxShadow: hovered
+          ? '0 20px 56px rgba(0,0,0,0.55)'
+          : '0 8px 32px rgba(0,0,0,0.4)',
+        transform: hovered && !playing ? 'scale(1.02)' : 'scale(1)',
+        transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       {playing ? (
         <iframe
           src={`https://player.vimeo.com/video/${id}?autoplay=1&loop=1&title=0&byline=0&portrait=0&dnt=1`}
-          className="absolute inset-0 w-full h-full"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
-          title={categoria}
+          title={`Video ${categoria}`}
         />
       ) : (
         <>
+          {/* Thumbnail */}
           <img
             src={`https://vumbnail.com/${id}.jpg`}
             alt={categoria}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
+            style={{
+              position: 'absolute', inset: 0,
+              width: '100%', height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
+              transform: hovered ? 'scale(1.06)' : 'scale(1)',
+            }}
           />
-          {/* Overlay oscuro */}
-          <div className="absolute inset-0 bg-jet/30 group-hover:bg-jet/50 transition-colors duration-300" />
 
-          {/* Etiqueta categoría */}
-          <span className="absolute bottom-3 left-4 font-mozilla text-[0.62rem] tracking-[0.14em] text-cream/80 uppercase">
-            {categoria}
-          </span>
+          {/* Gradient overlay */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: hovered
+              ? 'linear-gradient(to top, rgba(4,16,16,0.9) 0%, rgba(4,16,16,0.3) 50%, transparent 100%)'
+              : 'linear-gradient(to top, rgba(4,16,16,0.75) 0%, transparent 60%)',
+            transition: 'background 0.3s ease',
+          }} />
 
-          {/* Botón play */}
+          {/* Category badge */}
+          <div style={{
+            position: 'absolute', bottom: 14, left: 14,
+            background: 'rgba(232,98,26,0.18)',
+            border: '1px solid rgba(232,98,26,0.35)',
+            borderRadius: '100px',
+            padding: '4px 12px',
+          }}>
+            <span className="font-mozilla font-bold uppercase"
+                  style={{ fontSize: '0.55rem', letterSpacing: '0.18em', color: '#ff8a3d' }}>
+              {categoria}
+            </span>
+          </div>
+
+          {/* Play button */}
           <button
             onClick={() => setPlaying(true)}
             aria-label={`Reproducir video de ${categoria}`}
-            className="absolute inset-0 w-full h-full flex items-center justify-center"
+            style={{
+              position: 'absolute', inset: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'transparent', border: 'none', cursor: 'pointer',
+            }}
           >
-            <span className="w-[54px] h-[54px] rounded-full border-2 border-cream/80 bg-jet/40 flex items-center justify-center backdrop-blur-[4px] opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-cream ml-[3px]">
+            <span style={{
+              width: 56, height: 56,
+              borderRadius: '50%',
+              border: '2px solid rgba(240,237,227,0.85)',
+              background: 'rgba(0,0,0,0.45)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              opacity: hovered ? 1 : 0,
+              transform: hovered ? 'scale(1)' : 'scale(0.8)',
+              transition: 'opacity 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1)',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+            }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f0ede3"
+                   style={{ marginLeft: 3 }}>
                 <path d="M8 5v14l11-7z" />
               </svg>
             </span>
@@ -63,35 +159,104 @@ function VideoCard({ id, categoria }) {
 }
 
 export default function Portfolio() {
+  const [activa, setActiva] = useState('Todos');
+
+  const filtrados = activa === 'Todos'
+    ? VIDEOS
+    : VIDEOS.filter(v => v.categoria === activa);
+
   return (
     <section
       id="portfolio"
-      className="md:min-h-screen pt-14 bg-jet relative overflow-hidden flex flex-col"
+      className="relative overflow-hidden bg-jet"
+      style={{ paddingTop: '56px' }}
     >
-      {/* Blob decorativo */}
+      {/* Blob teal top-right */}
       <div
         aria-hidden="true"
-        className="absolute -top-[10%] -right-[8%] w-[500px] h-[500px] rounded-full opacity-30 blur-[40px] pointer-events-none animate-[drift_16s_ease-in-out_infinite]"
-        style={{ background: 'radial-gradient(circle at 60% 40%, #1a7a6e 0%, transparent 70%)' }}
+        className="absolute pointer-events-none"
+        style={{
+          top: '-8%', right: '-6%',
+          width: 520, height: 520,
+          borderRadius: '50%',
+          opacity: 0.25,
+          filter: 'blur(48px)',
+          background: 'radial-gradient(circle at 60% 40%, #1a7a6e 0%, transparent 70%)',
+          animation: 'drift 18s ease-in-out infinite',
+        }}
+      />
+      {/* Blob ember bottom-left */}
+      <div
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{
+          bottom: '-10%', left: '-5%',
+          width: 380, height: 380,
+          borderRadius: '50%',
+          opacity: 0.12,
+          filter: 'blur(60px)',
+          background: 'radial-gradient(circle at 50% 50%, #e8621a 0%, transparent 70%)',
+          animation: 'drift 22s ease-in-out infinite reverse',
+        }}
       />
 
-      <div className="relative flex flex-1 flex-col gap-10 py-[clamp(40px,8vh,80px)] px-[var(--gutter)]">
+      <div
+        className="relative flex flex-col"
+        style={{
+          zIndex: 1,
+          padding: 'clamp(48px,8vh,88px) clamp(24px,5vw,96px)',
+          gap: 'clamp(32px,5vh,56px)',
+        }}
+      >
+        {/* ── Header ── */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between" style={{ gap: 24 }}>
+          <Reveal>
+            <p className="font-mozilla font-bold uppercase mb-3"
+               style={{ fontSize: '0.68rem', letterSpacing: '0.26em', color: '#e8621a' }}>
+              Portfolio
+            </p>
+            <h2 className="font-nevanta font-bold text-cream"
+                style={{ fontSize: 'clamp(2.4rem,5.5vw,4.2rem)', lineHeight: 1.04 }}>
+              Nuestro <span style={{ color: '#e8621a' }}>trabajo</span><br />habla por sí solo
+            </h2>
+          </Reveal>
 
-        {/* Header */}
-        <Reveal>
-          <h2 className="font-nevanta text-[clamp(2.2rem,6vw,4.5rem)] font-bold leading-[1.02] text-cream">
-            Nuestro <span className="text-ember">trabajo</span><br />habla
-          </h2>
-        </Reveal>
+          {/* Filtros */}
+          <Reveal delay={0.1}>
+            <div className="flex flex-wrap" style={{ gap: 8 }} role="group" aria-label="Filtrar categoría">
+              {CATEGORIAS.map(cat => (
+                <FilterPill
+                  key={cat}
+                  label={cat}
+                  active={activa === cat}
+                  onClick={() => setActiva(cat)}
+                />
+              ))}
+            </div>
+          </Reveal>
+        </div>
 
-        {/* Grilla */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[14px]">
-          {VIDEOS.map((video, i) => (
-            <Reveal key={video.id} delay={i * 0.07}>
+        {/* ── Grilla ── */}
+        <div
+          className="grid"
+          style={{
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(180px, 100%), 1fr))',
+            gap: 16,
+          }}
+        >
+          {filtrados.map((video, i) => (
+            <Reveal key={video.id} delay={Math.min(i * 0.06, 0.4)}>
               <VideoCard id={video.id} categoria={video.categoria} />
             </Reveal>
           ))}
         </div>
+
+        {filtrados.length === 0 && (
+          <p className="font-mozilla font-light text-center"
+             style={{ color: 'rgba(240,237,227,0.35)', padding: '80px 0', fontSize: '0.9rem' }}>
+            No hay videos en esta categoría.
+          </p>
+        )}
       </div>
     </section>
   );
