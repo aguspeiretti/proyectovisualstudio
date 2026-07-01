@@ -5,10 +5,13 @@ const NAV_LINKS = ['HOME', 'NOSOTROS', 'PORTFOLIO', 'CONTACTO'];
 export default function Navbar() {
   const [active, setActive] = useState('HOME');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const ids = ['home', 'nosotros', 'portfolio', 'contacto'];
+
     const onScroll = () => {
+      setScrolled(window.scrollY > 10);
       for (const id of [...ids].reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 80) {
@@ -17,7 +20,8 @@ export default function Navbar() {
         }
       }
     };
-    window.addEventListener('scroll', onScroll);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -27,30 +31,42 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] bg-forest border-b border-white/[0.07]">
-      <div className="h-14 flex items-center justify-between relative px-[var(--gutter)]">
+    <nav
+      className="fixed top-0 left-0 right-0 z-[100]"
+      style={{
+        background: scrolled
+          ? 'rgba(10,44,44,0.92)'
+          : '#0c3838',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: '1px solid rgba(255,255,255,0.07)',
+        transition: 'background 0.4s ease, backdrop-filter 0.4s ease',
+      }}
+    >
+      <div
+        className="flex items-center justify-between"
+        style={{ height: 56, padding: '0 clamp(20px,4vw,80px)' }}
+      >
 
-        {/* Logo */}
+        {/* ── Logo ── */}
         <a
           href="#home"
           onClick={() => goTo('HOME')}
-          className="flex items-center gap-[10px] transition-opacity duration-200 hover:opacity-75"
+          className="flex items-center"
+          style={{ gap: 10, textDecoration: 'none', opacity: 1, transition: 'opacity 0.2s' }}
+          onMouseEnter={e => e.currentTarget.style.opacity = 0.75}
+          onMouseLeave={e => e.currentTarget.style.opacity = 1}
         >
-          <img src="/logo-icon.png" alt="Visual Studio" className="h-[34px] w-auto block" />
-          <span className="font-mozilla text-[0.82rem] tracking-[0.2em] text-cream">
-            <strong className="font-bold">VISUAL</strong>
+          <img src="/logo-icon.png" alt="Visual Studio" style={{ height: 32, width: 'auto', display: 'block' }} />
+          <span className="font-mozilla" style={{ fontSize: '0.8rem', letterSpacing: '0.22em', color: '#f0ede3' }}>
+            <strong style={{ fontWeight: 700 }}>VISUAL</strong>
             {' '}
-            <span className="font-light">STUDIO</span>
+            <span style={{ fontWeight: 300 }}>STUDIO</span>
           </span>
         </a>
 
-        {/* Center + (desktop only) */}
-        <span className="hidden md:block absolute left-1/2 -translate-x-1/2 text-cream/25 text-[1.1rem] leading-none select-none">
-          +
-        </span>
-
-        {/* Nav (desktop) */}
-        <ul className="hidden md:flex items-center gap-7">
+        {/* ── Nav links (desktop) ── */}
+        <ul className="hidden md:flex items-center" style={{ gap: 36, listStyle: 'none', margin: 0, padding: 0 }}>
           {NAV_LINKS.map(label => {
             const isActive = active === label;
             return (
@@ -58,59 +74,154 @@ export default function Navbar() {
                 <a
                   href={`#${label.toLowerCase()}`}
                   onClick={() => goTo(label)}
-                  aria-current={isActive ? 'true' : undefined}
-                  className={[
-                    'font-mozilla text-[0.75rem] tracking-[0.12em] text-cream pb-[3px]',
-                    'border-b-[1.5px] transition-[border-color,opacity] duration-200 hover:opacity-75',
-                    isActive ? 'font-bold border-cream' : 'font-normal border-transparent',
-                  ].join(' ')}
+                  aria-current={isActive ? 'page' : undefined}
+                  className="font-mozilla font-bold"
+                  style={{
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.14em',
+                    textDecoration: 'none',
+                    color: isActive ? '#f0ede3' : 'rgba(240,237,227,0.5)',
+                    position: 'relative',
+                    paddingBottom: 4,
+                    transition: 'color 0.2s ease',
+                  }}
+                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = 'rgba(240,237,227,0.85)'; }}
+                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = 'rgba(240,237,227,0.5)'; }}
                 >
                   {label}
+                  {/* Indicador activo */}
+                  <span style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0,
+                    height: 2, borderRadius: 1,
+                    background: '#e8621a',
+                    opacity: isActive ? 1 : 0,
+                    transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
+                    transformOrigin: 'left',
+                    transition: 'opacity 0.25s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1)',
+                  }} />
                 </a>
               </li>
             );
           })}
         </ul>
 
-        {/* Hamburger (mobile) */}
+        {/* ── CTA desktop ── */}
+        <a
+          href="#contacto"
+          onClick={() => goTo('CONTACTO')}
+          className="hidden md:inline-flex items-center font-mozilla font-bold uppercase"
+          style={{
+            fontSize: '0.65rem', letterSpacing: '0.18em',
+            color: '#f0ede3',
+            background: '#e8621a',
+            borderRadius: 100,
+            padding: '8px 22px',
+            textDecoration: 'none',
+            boxShadow: '0 4px 16px rgba(232,98,26,0.3)',
+            transition: 'all 0.22s cubic-bezier(0.16,1,0.3,1)',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = '#c85418';
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 22px rgba(232,98,26,0.45)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = '#e8621a';
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(232,98,26,0.3)';
+          }}
+        >
+          Contacto
+        </a>
+
+        {/* ── Hamburger (mobile) ── */}
         <button
-          className="flex md:hidden flex-col justify-center gap-[5px] w-8 h-8"
+          className="flex md:hidden flex-col justify-center"
+          style={{ gap: 5, width: 32, height: 32, background: 'transparent', border: 'none', cursor: 'pointer', padding: 4 }}
           onClick={() => setMenuOpen(o => !o)}
-          aria-label={menuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
         >
-          <span className={`block h-[2px] w-full bg-cream transition-transform duration-200 ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
-          <span className={`block h-[2px] w-full bg-cream transition-opacity duration-200 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
-          <span className={`block h-[2px] w-full bg-cream transition-transform duration-200 ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
+          {[0, 1, 2].map(i => (
+            <span
+              key={i}
+              style={{
+                display: 'block',
+                height: 2, width: '100%',
+                borderRadius: 1,
+                background: '#f0ede3',
+                transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease',
+                transform: menuOpen
+                  ? i === 0 ? 'translateY(7px) rotate(45deg)'
+                  : i === 2 ? 'translateY(-7px) rotate(-45deg)'
+                  : 'none'
+                  : 'none',
+                opacity: menuOpen && i === 1 ? 0 : 1,
+              }}
+            />
+          ))}
         </button>
-
-        {/* Top-right ++ (desktop only) */}
-        <span className="hidden md:block absolute -right-[10px] -top-[21px] text-cream/25 text-[0.65rem] leading-[1.4] select-none">
-          +<br/>+
-        </span>
       </div>
 
-      {/* Mobile dropdown */}
-      {menuOpen && (
-        <ul id="mobile-menu" className="md:hidden flex flex-col bg-forest border-t border-white/[0.07] py-2 px-[var(--gutter)] pb-4">
+      {/* ── Mobile menu ── */}
+      <div
+        id="mobile-menu"
+        style={{
+          overflow: 'hidden',
+          maxHeight: menuOpen ? 300 : 0,
+          opacity: menuOpen ? 1 : 0,
+          transition: 'max-height 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease',
+          borderTop: menuOpen ? '1px solid rgba(255,255,255,0.07)' : 'none',
+        }}
+      >
+        <ul
+          style={{ listStyle: 'none', margin: 0, padding: 'clamp(12px,3vw,20px) clamp(20px,4vw,80px) 20px' }}
+        >
           {NAV_LINKS.map(label => {
             const isActive = active === label;
             return (
-              <li key={label}>
+              <li key={label} style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <a
                   href={`#${label.toLowerCase()}`}
                   onClick={() => goTo(label)}
-                  aria-current={isActive ? 'true' : undefined}
-                  className={`block font-mozilla text-[0.85rem] tracking-[0.12em] text-cream py-3 ${isActive ? 'font-bold' : 'font-normal'}`}
+                  aria-current={isActive ? 'page' : undefined}
+                  className="font-mozilla"
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '14px 0',
+                    textDecoration: 'none',
+                    fontSize: '0.9rem', letterSpacing: '0.1em',
+                    fontWeight: isActive ? 700 : 400,
+                    color: isActive ? '#f0ede3' : 'rgba(240,237,227,0.6)',
+                  }}
                 >
                   {label}
+                  {isActive && (
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#e8621a' }} />
+                  )}
                 </a>
               </li>
             );
           })}
+          <li style={{ paddingTop: 16 }}>
+            <a
+              href="#contacto"
+              onClick={() => goTo('CONTACTO')}
+              className="font-mozilla font-bold uppercase"
+              style={{
+                display: 'inline-block',
+                fontSize: '0.7rem', letterSpacing: '0.18em',
+                color: '#f0ede3', background: '#e8621a',
+                borderRadius: 100, padding: '10px 28px',
+                textDecoration: 'none',
+              }}
+            >
+              Escribinos
+            </a>
+          </li>
         </ul>
-      )}
+      </div>
     </nav>
   );
 }
