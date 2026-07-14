@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Player from '@vimeo/player';
 import Reveal from './Reveal';
 
 const VIMEO_ID = '1209854511';
@@ -17,7 +18,10 @@ const SERVICIOS = [
 export default function Nosotros() {
   const [open, setOpen] = useState('Branding y Diseño');
   const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
   const videoCardRef = useRef(null);
+  const iframeRef = useRef(null);
+  const playerRef = useRef(null);
 
   useEffect(() => {
     const el = videoCardRef.current;
@@ -36,6 +40,28 @@ export default function Nosotros() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!playing || !iframeRef.current) return;
+    const player = new Player(iframeRef.current);
+    playerRef.current = player;
+    return () => {
+      player.destroy();
+      playerRef.current = null;
+    };
+  }, [playing]);
+
+  const handleManualPlay = () => {
+    setMuted(false);
+    setPlaying(true);
+  };
+
+  const toggleMuted = () => {
+    const player = playerRef.current;
+    if (!player) return;
+    const next = !muted;
+    player.setMuted(next).then(() => setMuted(next));
+  };
 
   return (
     <section id="nosotros" className="md:min-h-screen pt-14">
@@ -89,16 +115,49 @@ export default function Nosotros() {
             }}
           >
             {playing ? (
-              <iframe
-                src={`https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&loop=1&controls=0&title=0&byline=0&portrait=0`}
-                title="Presentación Nosotros"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                allowFullScreen
-                style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-              />
+              <>
+                <iframe
+                  ref={iframeRef}
+                  src={`https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&muted=${muted ? 1 : 0}&loop=1&controls=0&title=0&byline=0&portrait=0`}
+                  title="Presentación Nosotros"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  allowFullScreen
+                  style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                />
+                <button
+                  onClick={toggleMuted}
+                  aria-label={muted ? 'Activar sonido' : 'Silenciar'}
+                  style={{
+                    position: 'absolute', bottom: 16, right: 16,
+                    width: 40, height: 40, borderRadius: '50%',
+                    border: '1px solid rgba(240,237,227,0.5)',
+                    background: 'rgba(0,0,0,0.4)',
+                    backdropFilter: 'blur(8px)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease, background 0.2s ease',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.08)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+                >
+                  {muted ? (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0ede3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#f0ede3" stroke="none" />
+                      <line x1="23" y1="9" x2="17" y2="15" />
+                      <line x1="17" y1="9" x2="23" y2="15" />
+                    </svg>
+                  ) : (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0ede3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#f0ede3" stroke="none" />
+                      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                    </svg>
+                  )}
+                </button>
+              </>
             ) : (
               <button
-                onClick={() => setPlaying(true)}
+                onClick={handleManualPlay}
                 aria-label="Reproducir video de presentación"
                 className="relative flex items-center justify-center"
                 style={{
