@@ -105,11 +105,12 @@ export default function Contacto() {
 
     setStatus('sending');
     try {
-      await fetch('/', {
+      const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encodeFormData(data),
       });
+      if (!response.ok) throw new Error(`Netlify respondió ${response.status}`);
       setStatus('sent');
       form.reset();
     } catch {
