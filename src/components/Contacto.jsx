@@ -89,12 +89,32 @@ function Field({ id, label, type = 'text', placeholder, required, as = 'input', 
   );
 }
 
+function encodeFormData(data) {
+  return Object.keys(data)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join('&');
+}
+
 export default function Contacto() {
   const [status, setStatus] = useState('idle');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('sent');
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form));
+
+    setStatus('sending');
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encodeFormData(data),
+      });
+      setStatus('sent');
+      form.reset();
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -180,6 +200,10 @@ export default function Contacto() {
         >
           <Reveal delay={0.08} className="w-full" style={{ maxWidth: 580 }}>
             <form
+              name="contacto"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
               style={{
                 background: 'rgba(255,255,255,0.05)',
@@ -199,6 +223,13 @@ export default function Contacto() {
                 Escribinos
               </h3>
 
+              <input type="hidden" name="form-name" value="contacto" />
+              <p hidden>
+                <label>
+                  No completar: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                </label>
+              </p>
+
               <div className="flex flex-col" style={{ gap: '20px' }}>
                 {/* Nombre + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: '20px' }}>
@@ -214,7 +245,7 @@ export default function Contacto() {
                 <div className="flex flex-col items-start" style={{ gap: '12px', paddingTop: '4px' }}>
                   <button
                     type="submit"
-                    disabled={status === 'sent'}
+                    disabled={status === 'sent' || status === 'sending'}
                     className="font-mozilla font-bold uppercase text-cream transition-all duration-200"
                     style={{
                       fontSize: '0.75rem',
@@ -223,19 +254,25 @@ export default function Contacto() {
                       borderRadius: '100px',
                       padding: '14px 40px',
                       border: 'none',
-                      cursor: status === 'sent' ? 'default' : 'pointer',
+                      cursor: status === 'sent' || status === 'sending' ? 'default' : 'pointer',
                       boxShadow: status === 'sent' ? 'none' : '0 8px 28px rgba(232,98,26,0.45)',
                       transform: 'scale(1)',
                     }}
-                    onMouseEnter={e => { if (status !== 'sent') e.currentTarget.style.transform = 'scale(1.04)'; }}
+                    onMouseEnter={e => { if (status !== 'sent' && status !== 'sending') e.currentTarget.style.transform = 'scale(1.04)'; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
                   >
-                    {status === 'sent' ? 'Mensaje enviado ✓' : 'Enviar mensaje'}
+                    {status === 'sending' ? 'Enviando...' : status === 'sent' ? 'Mensaje enviado ✓' : 'Enviar mensaje'}
                   </button>
                   {status === 'sent' && (
                     <p role="status" className="font-mozilla font-light"
                        style={{ fontSize: '0.8rem', color: 'rgba(240,237,227,0.55)' }}>
                       ¡Gracias! Te responderemos a la brevedad.
+                    </p>
+                  )}
+                  {status === 'error' && (
+                    <p role="status" className="font-mozilla font-light"
+                       style={{ fontSize: '0.8rem', color: '#ff8a3d' }}>
+                      Hubo un error al enviar. Probá de nuevo o escribinos por WhatsApp.
                     </p>
                   )}
                 </div>
