@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand colours */
+  --color-cream:        #f0ede3;
+  --color-forest:       #0c3838;
+  --color-pine:         #1a7a6e;
+  --color-fern:         #156b60;
+  --color-ember:        #e8621a;
+  --color-ember-light:  #ff8a3d;
+  --color-jet:          #141414;
+  --color-pebble:       #d6d3cb;
+
+  /* Brand fonts */
+  --font-nevanta: 'Nevanta', sans-serif;
+  --font-mozilla: 'MozillaText', sans-serif;
+
+  /* Named animations */
+  --animate-gentle-bounce: gentle-bounce 2s ease-in-out infinite;
+}
+
 @font-face {
   font-family: 'Nevanta';
   src: url('/fonts/Nevanta-Light.otf') format('opentype');
@@ -43,6 +62,10 @@
   padding: 0;
 }
 
+:root {
+  --gutter: clamp(24px, 5vw, 96px);
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -80,4 +103,32 @@ input, textarea {
 input::placeholder,
 textarea::placeholder {
   color: rgba(240, 237, 227, 0.4);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, 30px) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
