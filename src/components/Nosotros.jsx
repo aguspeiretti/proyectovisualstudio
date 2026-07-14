@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Reveal from './Reveal';
 
 const VIMEO_ID = '1209854511';
@@ -17,6 +17,25 @@ const SERVICIOS = [
 export default function Nosotros() {
   const [open, setOpen] = useState('Branding y Diseño');
   const [playing, setPlaying] = useState(false);
+  const videoCardRef = useRef(null);
+
+  useEffect(() => {
+    const el = videoCardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPlaying(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="nosotros" className="md:min-h-screen pt-14">
@@ -58,6 +77,7 @@ export default function Nosotros() {
 
           {/* Video card */}
           <div
+            ref={videoCardRef}
             className="relative"
             style={{
               width: 'clamp(260px,70%,720px)',
@@ -70,7 +90,7 @@ export default function Nosotros() {
           >
             {playing ? (
               <iframe
-                src={`https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&title=0&byline=0&portrait=0`}
+                src={`https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&loop=1&controls=0&title=0&byline=0&portrait=0`}
                 title="Presentación Nosotros"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                 allowFullScreen
