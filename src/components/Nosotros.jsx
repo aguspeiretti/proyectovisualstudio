@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import Reveal from './Reveal';
 
+const VIMEO_ID = '1209854511';
+const VIMEO_THUMBNAIL = 'https://i.vimeocdn.com/video/2179566729-495fed72a85e35a5e79722f1435e667d1e66ff1de80b716dd0e183e073e3d67a-d_1280?region=us';
+
 const SERVICIOS = [
   { title: 'Estrategia y Consultoría', sub: [] },
   {
@@ -13,6 +16,7 @@ const SERVICIOS = [
 
 export default function Nosotros() {
   const [open, setOpen] = useState('Branding y Diseño');
+  const [playing, setPlaying] = useState(false);
 
   return (
     <section id="nosotros" className="md:min-h-screen pt-14">
@@ -49,56 +53,67 @@ export default function Nosotros() {
               color: 'rgba(240,237,227,0.45)',
             }}
           >
-            * Presentación — próximamente
+            * Presentación
           </p>
 
-          {/* Glass card placeholder */}
+          {/* Video card */}
           <div
-            className="relative flex flex-col items-center justify-center"
+            className="relative"
             style={{
-              width: 'clamp(200px,50%,320px)',
+              width: 'clamp(260px,70%,720px)',
               aspectRatio: '16/9',
               borderRadius: 20,
-              background: 'rgba(255,255,255,0.04)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderTop: '1px solid rgba(255,255,255,0.2)',
+              overflow: 'hidden',
               boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
-              gap: 16,
+              border: '1px solid rgba(255,255,255,0.1)',
             }}
           >
-            <button
-              aria-label="Reproducir video de presentación"
-              style={{
-                width: 64, height: 64, borderRadius: '50%',
-                border: '2px solid rgba(240,237,227,0.8)',
-                background: 'rgba(0,0,0,0.35)',
-                backdropFilter: 'blur(8px)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.35)',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'scale(1.1)';
-                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.5)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.35)';
-              }}
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#f0ede3" style={{ marginLeft: 4 }}>
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
-            <span
-              className="font-mozilla font-light"
-              style={{ fontSize: '0.65rem', letterSpacing: '0.12em', color: 'rgba(240,237,227,0.35)' }}
-            >
-              VIDEO PRÓXIMAMENTE
-            </span>
+            {playing ? (
+              <iframe
+                src={`https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&title=0&byline=0&portrait=0`}
+                title="Presentación Nosotros"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                allowFullScreen
+                style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+              />
+            ) : (
+              <button
+                onClick={() => setPlaying(true)}
+                aria-label="Reproducir video de presentación"
+                className="relative flex items-center justify-center"
+                style={{
+                  width: '100%', height: '100%',
+                  border: 'none', padding: 0, cursor: 'pointer',
+                  backgroundImage: `linear-gradient(rgba(6,26,26,0.25), rgba(6,26,26,0.4)), url(${VIMEO_THUMBNAIL})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              >
+                <span
+                  style={{
+                    width: 64, height: 64, borderRadius: '50%',
+                    border: '2px solid rgba(240,237,227,0.8)',
+                    background: 'rgba(0,0,0,0.35)',
+                    backdropFilter: 'blur(8px)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease',
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.35)',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'scale(1.1)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.5)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.35)';
+                  }}
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#f0ede3" style={{ marginLeft: 4 }}>
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </button>
+            )}
           </div>
         </div>
 
