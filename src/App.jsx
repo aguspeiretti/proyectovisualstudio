@@ -3,6 +3,7 @@ import Home from './components/Home';
 import Nosotros from './components/Nosotros';
 import Portfolio from './components/Portfolio';
 import Contacto from './components/Contacto';
+import WhatsAppButton from './components/WhatsAppButton';
 import './index.css';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <Portfolio />
         <Contacto />
       </main>
+      <WhatsAppButton />
     </>
   );
 }
