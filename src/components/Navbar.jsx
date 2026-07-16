@@ -58,7 +58,7 @@ export default function Navbar() {
           onMouseLeave={e => e.currentTarget.style.opacity = 1}
         >
           <img src="/logo-icon.png" alt="Visual Studio" style={{ height: 38, width: 'auto', display: 'block' }} />
-          <span className="font-mozilla" style={{ fontSize: '0.92rem', letterSpacing: '0.22em', color: '#f0ede3' }}>
+          <span className="font-nevanta" style={{ fontSize: '0.92rem', letterSpacing: '0.22em', color: '#f0ede3' }}>
             <strong style={{ fontWeight: 700 }}>VISUAL</strong>
             {' '}
             <span style={{ fontWeight: 300 }}>STUDIO</span>
@@ -217,7 +217,7 @@ export default function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              Escribinos
+              Escríbenos
             </a>
           </li>
         </ul>

@@ -30,12 +30,16 @@ export default function Home() {
             </p>
 
             <h1
-              className="font-nevanta font-bold text-forest uppercase"
+              className="font-mozilla font-bold text-forest uppercase"
               style={{ fontSize: 'clamp(2.6rem,5.5vw,4.4rem)', lineHeight: 1.02, marginBottom: 24 }}
             >
-              <span style={{ fontWeight: 300 }}>¿Listo para la</span>
+              <span style={{ fontWeight: 300 }}>¿Listo</span>
               <br />
-              <span style={{ fontWeight: 700 }}>próxima misión?</span>
+              <span style={{ fontWeight: 300 }}>para la</span>
+              <br />
+              <span style={{ fontWeight: 700 }}>próxima</span>
+              <br />
+              <span style={{ fontWeight: 700 }}>misión?</span>
             </h1>
           </Reveal>
 

@@ -259,7 +259,7 @@ export default function Portfolio() {
                style={{ fontSize: '0.68rem', letterSpacing: '0.26em', color: '#e8621a' }}>
               Portfolio
             </p>
-            <h2 className="font-nevanta font-bold text-cream"
+            <h2 className="font-mozilla font-bold text-cream"
                 style={{ fontSize: 'clamp(2.4rem,5.5vw,4.2rem)', lineHeight: 1.04 }}>
               Nuestro <span style={{ color: '#e8621a' }}>trabajo</span><br />habla por sí solo
             </h2>

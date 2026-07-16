@@ -127,17 +127,6 @@ export default function Contacto() {
       {/* Overlay oscuro — imprescindible para que el glass se vea */}
       <div className="absolute inset-0" style={{ background: 'rgba(4, 26, 26, 0.72)' }} />
 
-      {/* Eclipse decorativo */}
-      <div
-        aria-hidden="true"
-        className="absolute -bottom-[180px] -left-[180px] w-[480px] h-[480px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at 62% 38%, transparent 58%, #ff8a3d 64%, #e8621a 68%, #7a2c00 74%, transparent 78%)',
-          boxShadow: '0 0 80px 20px rgba(232,98,26,0.2)',
-          zIndex: 1,
-        }}
-      />
-
       {/* Layout */}
       <div
         className="relative flex flex-col lg:flex-row min-h-screen"
@@ -154,7 +143,7 @@ export default function Contacto() {
                style={{ fontSize: '0.68rem', letterSpacing: '0.26em', color: '#e8621a' }}>
               Contacto
             </p>
-            <h2 className="font-nevanta font-bold text-cream uppercase"
+            <h2 className="font-mozilla font-bold text-cream uppercase"
                 style={{ fontSize: 'clamp(2.6rem,3.8vw,4rem)', lineHeight: 1.04 }}>
               ¿Listo para<br />el salto?{' '}
               <span style={{ color: '#e8621a' }}>Hablemos.</span>
@@ -218,10 +207,10 @@ export default function Contacto() {
               }}
             >
               <h3
-                className="font-nevanta font-bold text-cream uppercase mb-8"
+                className="font-mozilla font-bold text-cream uppercase mb-8"
                 style={{ fontSize: '1.7rem', letterSpacing: '0.04em' }}
               >
-                Escribinos
+                Escríbenos
               </h3>
 
               <input type="hidden" name="form-name" value="contacto" />

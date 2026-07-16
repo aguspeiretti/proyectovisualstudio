@@ -6,13 +6,31 @@ const VIMEO_ID = '1209854511';
 const VIMEO_THUMBNAIL = 'https://i.vimeocdn.com/video/2179566729-495fed72a85e35a5e79722f1435e667d1e66ff1de80b716dd0e183e073e3d67a-d_1280?region=us';
 
 const SERVICIOS = [
-  { title: 'Estrategia y Consultoría', sub: [] },
+  {
+    title: 'Estrategia y Consultoría',
+    quote: 'No sabemos cómo comunicar lo que hacemos.',
+    sub: ['Auditorías de marca', 'Posicionamiento', 'Propuesta de valor', 'Estrategia de comunicación'],
+  },
   {
     title: 'Branding y Diseño',
+    quote: 'Nuestra imagen no refleja quiénes somos.',
     sub: ['Identidad visual', 'Rebranding', 'Manual de marca', 'Diseño editorial', 'Packaging', 'Diseño gráfico', 'Ilustración', 'Murales corporativos', 'Señalética'],
   },
-  { title: 'Comunicación Digital', sub: [] },
-  { title: 'Producción Audiovisual', sub: [] },
+  {
+    title: 'Comunicación Digital',
+    quote: 'Tenemos presencia digital pero no una estrategia correcta.',
+    sub: ['Estrategia digital', 'Gestión de redes', 'Campañas', 'Copywriting', 'LinkedIn corporativo'],
+  },
+  {
+    title: 'Producción Audiovisual',
+    quote: 'Necesitamos mostrar nuestro valor de forma profesional.',
+    sub: ['Fotografía corporativa', 'Fotografía gastronómica', 'Fotografía de producto', 'Videos corporativos', 'Campañas publicitarias', 'Cobertura de eventos', 'Manuales de uso', 'Formación interna y externa', 'Entrevistas', 'Testimoniales'],
+  },
+  {
+    title: 'Experiencia Digital',
+    quote: 'Nuestro negocio necesita presencia en la web.',
+    sub: ['Diseño web', 'Landing pages', 'Ecommerce'],
+  },
 ];
 
 export default function Nosotros() {
@@ -63,13 +81,18 @@ export default function Nosotros() {
     player.setMuted(next).then(() => setMuted(next));
   };
 
+  const handleFullscreen = () => {
+    const player = playerRef.current;
+    if (player) player.requestFullscreen();
+  };
+
   return (
     <section id="nosotros" className="md:min-h-screen pt-14">
       <div className="flex flex-col md:flex-row" style={{ minHeight: 'calc(100vh - 56px)' }}>
 
         {/* ── Izquierda — Video ── */}
         <div
-          className="w-full md:w-[58%] relative flex flex-col items-center justify-center overflow-hidden"
+          className="w-full md:w-[65%] relative flex flex-col items-center justify-center overflow-hidden"
           style={{
             minHeight: 320,
             background: 'linear-gradient(150deg, #0c3838 0%, #072424 55%, #061a1a 100%)',
@@ -89,24 +112,12 @@ export default function Nosotros() {
             animation: 'drift 20s ease-in-out infinite reverse',
           }} />
 
-          {/* Caption */}
-          <p
-            className="absolute font-mozilla font-normal uppercase"
-            style={{
-              top: 20, left: 'clamp(24px,5vw,96px)',
-              fontSize: '0.7rem', letterSpacing: '0.1em',
-              color: 'rgba(240,237,227,0.45)',
-            }}
-          >
-            * Presentación
-          </p>
-
           {/* Video card */}
           <div
             ref={videoCardRef}
             className="relative"
             style={{
-              width: 'clamp(260px,70%,720px)',
+              width: 'clamp(260px,78%,820px)',
               aspectRatio: '16/9',
               borderRadius: 20,
               overflow: 'hidden',
@@ -124,8 +135,16 @@ export default function Nosotros() {
                   allowFullScreen
                   style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
                 />
+                <div
+                  onClick={handleFullscreen}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Ver en pantalla completa"
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleFullscreen(); }}
+                  style={{ position: 'absolute', inset: 0, cursor: 'pointer', zIndex: 1 }}
+                />
                 <button
-                  onClick={toggleMuted}
+                  onClick={e => { e.stopPropagation(); toggleMuted(); }}
                   aria-label={muted ? 'Activar sonido' : 'Silenciar'}
                   style={{
                     position: 'absolute', bottom: 16, right: 16,
@@ -136,6 +155,7 @@ export default function Nosotros() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: 'pointer',
                     transition: 'transform 0.2s ease, background 0.2s ease',
+                    zIndex: 2,
                   }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.08)'; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
@@ -198,7 +218,7 @@ export default function Nosotros() {
 
         {/* ── Derecha — Servicios ── */}
         <div
-          className="w-full md:w-[42%] flex flex-col justify-center bg-cream"
+          className="w-full md:w-[35%] flex flex-col justify-center bg-cream"
           style={{ padding: 'clamp(48px,8vh,80px) clamp(24px,5vw,72px)' }}
         >
           <Reveal>
@@ -209,7 +229,7 @@ export default function Nosotros() {
               Lo que hacemos
             </p>
             <h2
-              className="font-nevanta font-bold mb-10"
+              className="font-mozilla font-bold mb-10"
               style={{ fontSize: 'clamp(2rem,3.5vw,3rem)', letterSpacing: '0.04em', color: '#0c3838', lineHeight: 1.1 }}
             >
               SERVICIOS
@@ -217,7 +237,7 @@ export default function Nosotros() {
           </Reveal>
 
           <ul className="flex flex-col" style={{ gap: 0 }}>
-            {SERVICIOS.map(({ title, sub }, i) => {
+            {SERVICIOS.map(({ title, quote, sub }, i) => {
               const isOpen = open === title;
               const hasChildren = sub.length > 0;
               const panelId = `srv-${title.replace(/\s+/g, '-')}`;
@@ -272,11 +292,19 @@ export default function Nosotros() {
                         id={panelId}
                         style={{
                           overflow: 'hidden',
-                          maxHeight: isOpen ? 500 : 0,
+                          maxHeight: isOpen ? 640 : 0,
                           opacity: isOpen ? 1 : 0,
                           transition: 'max-height 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease',
                         }}
                       >
+                        {quote && (
+                          <p
+                            className="font-mozilla font-light italic"
+                            style={{ fontSize: '0.85rem', color: '#0c3838', opacity: 0.6, paddingBottom: 10 }}
+                          >
+                            "{quote}"
+                          </p>
+                        )}
                         <ul
                           className="flex flex-col"
                           style={{ paddingBottom: 18, gap: 0 }}
