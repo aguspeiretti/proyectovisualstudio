@@ -107,6 +107,14 @@ textarea:focus-visible {
   50% { transform: translateY(6px); }
 }
 
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes drift {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(-30px, 30px) scale(1.08); }
