@@ -158,8 +158,9 @@ function MainVideo() {
   return (
     <div
       ref={cardRef}
-      className="relative w-full"
+      className="relative"
       style={{
+        width: 'clamp(260px,88%,940px)',
         aspectRatio: '16/9',
         borderRadius: 20,
         overflow: 'hidden',
@@ -374,69 +375,69 @@ export default function Portfolio() {
     : VIDEOS.filter(v => v.categoria === activa);
 
   return (
-    <section
-      id="portfolio"
-      className="relative overflow-hidden"
-      style={{
-        paddingTop: '56px',
-        background: 'linear-gradient(160deg, #0c3838 0%, #072020 55%, #061818 100%)',
-      }}
-    >
-      {/* Blob teal */}
-      <div aria-hidden="true" className="absolute pointer-events-none" style={{
-        top: '-10%', right: '-5%', width: 500, height: 500, borderRadius: '50%',
-        opacity: 0.22, filter: 'blur(50px)',
-        background: 'radial-gradient(circle, #1a7a6e 0%, transparent 70%)',
-        animation: 'drift 18s ease-in-out infinite',
-      }} />
-      {/* Blob ember */}
-      <div aria-hidden="true" className="absolute pointer-events-none" style={{
-        bottom: '-8%', left: '-4%', width: 340, height: 340, borderRadius: '50%',
-        opacity: 0.1, filter: 'blur(60px)',
-        background: 'radial-gradient(circle, #e8621a 0%, transparent 70%)',
-        animation: 'drift 24s ease-in-out infinite reverse',
-      }} />
+    <section id="portfolio" className="md:min-h-screen pt-14">
+      <div className="flex flex-col md:flex-row" style={{ minHeight: 'calc(100vh - 56px)' }}>
 
-      <div
-        className="relative flex flex-col"
-        style={{ zIndex: 1, padding: 'clamp(48px,8vh,88px) clamp(24px,5vw,96px)', gap: 'clamp(36px,5vh,60px)' }}
-      >
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between" style={{ gap: 24 }}>
+        {/* ── Izquierda — Video principal ── */}
+        <div
+          className="w-full md:w-[65%] relative flex flex-col items-center justify-center overflow-hidden"
+          style={{
+            minHeight: 320,
+            background: 'linear-gradient(150deg, #0c3838 0%, #072424 55%, #061a1a 100%)',
+          }}
+        >
+          {/* Blobs */}
+          <div aria-hidden="true" className="absolute pointer-events-none" style={{
+            top: '-15%', right: '-10%', width: 420, height: 420, borderRadius: '50%',
+            opacity: 0.2, filter: 'blur(50px)',
+            background: 'radial-gradient(circle, #1a7a6e 0%, transparent 70%)',
+            animation: 'drift 18s ease-in-out infinite',
+          }} />
+          <div aria-hidden="true" className="absolute pointer-events-none" style={{
+            bottom: '-10%', left: '-8%', width: 300, height: 300, borderRadius: '50%',
+            opacity: 0.15, filter: 'blur(50px)',
+            background: 'radial-gradient(circle, #e8621a 0%, transparent 70%)',
+            animation: 'drift 20s ease-in-out infinite reverse',
+          }} />
+
+          <Reveal>
+            <MainVideo />
+          </Reveal>
+        </div>
+
+        {/* ── Derecha — Mini grilla ── */}
+        <div
+          className="w-full md:w-[35%] flex flex-col justify-center bg-cream"
+          style={{ padding: 'clamp(48px,8vh,80px) clamp(24px,5vw,72px)' }}
+        >
           <Reveal>
             <p className="font-mozilla font-bold uppercase mb-3"
-               style={{ fontSize: '0.68rem', letterSpacing: '0.26em', color: '#e8621a' }}>
+               style={{ fontSize: '0.65rem', letterSpacing: '0.26em', color: '#e8621a' }}>
               Portfolio
             </p>
-            <h2 className="font-mozilla font-bold text-cream"
-                style={{ fontSize: 'clamp(2.4rem,5.5vw,4.2rem)', lineHeight: 1.04 }}>
-              Nuestro <span style={{ color: '#e8621a' }}>trabajo</span><br />habla por sí solo
+            <h2 className="font-mozilla font-bold mb-8"
+                style={{ fontSize: 'clamp(2rem,3.5vw,3rem)', letterSpacing: '0.02em', color: '#0c3838', lineHeight: 1.1 }}>
+              Nuestro <span style={{ color: '#e8621a' }}>trabajo</span> habla por sí solo
             </h2>
           </Reveal>
 
           {CATEGORIAS.length > 1 && (
-            <Reveal delay={0.1}>
-              <div className="flex flex-wrap" style={{ gap: 8 }} role="group" aria-label="Filtrar categoría">
+            <Reveal delay={0.08}>
+              <div className="flex flex-wrap" style={{ gap: 8, marginBottom: 24 }} role="group" aria-label="Filtrar categoría">
                 {CATEGORIAS.map(cat => (
                   <FilterPill key={cat} label={cat} active={activa === cat} onClick={() => setActiva(cat)} />
                 ))}
               </div>
             </Reveal>
           )}
-        </div>
 
-        {/* Video principal */}
-        <Reveal delay={0.15}>
-          <MainVideo />
-        </Reveal>
-
-        {/* Grilla — 5 columnas */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5" style={{ gap: 18 }}>
-          {filtrados.map((video, i) => (
-            <Reveal key={video.id} delay={Math.min(i * 0.06, 0.42)}>
-              <VideoCard video={video} onPlay={() => setModalVideo(video)} />
-            </Reveal>
-          ))}
+          <div className="grid grid-cols-3" style={{ gap: 10 }}>
+            {filtrados.map((video, i) => (
+              <Reveal key={video.id} delay={Math.min(i * 0.05, 0.4)}>
+                <VideoCard video={video} onPlay={() => setModalVideo(video)} />
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
 
