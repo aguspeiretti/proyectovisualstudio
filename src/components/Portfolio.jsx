@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Player from '@vimeo/player';
 import Reveal from './Reveal';
+
+const MAIN_VIDEO_ID = '1210525399';
 
 const VIDEOS = [
   { id: '1206134514', categoria: 'Gastronomía' },
@@ -99,6 +102,149 @@ function VideoModal({ video, onClose }) {
           {video.categoria}
         </span>
       </div>
+    </div>
+  );
+}
+
+/* ── MainVideo ── */
+function MainVideo() {
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const cardRef = useRef(null);
+  const iframeRef = useRef(null);
+  const playerRef = useRef(null);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPlaying(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!playing || !iframeRef.current) return;
+    const player = new Player(iframeRef.current);
+    playerRef.current = player;
+    return () => {
+      player.destroy();
+      playerRef.current = null;
+    };
+  }, [playing]);
+
+  const handleManualPlay = () => {
+    setMuted(false);
+    setPlaying(true);
+  };
+
+  const toggleMuted = () => {
+    const player = playerRef.current;
+    if (!player) return;
+    const next = !muted;
+    player.setMuted(next).then(() => setMuted(next));
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className="relative w-full"
+      style={{
+        aspectRatio: '16/9',
+        borderRadius: 20,
+        overflow: 'hidden',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+        border: '1px solid rgba(255,255,255,0.1)',
+      }}
+    >
+      {playing ? (
+        <>
+          <iframe
+            ref={iframeRef}
+            src={`https://player.vimeo.com/video/${MAIN_VIDEO_ID}?autoplay=1&muted=${muted ? 1 : 0}&loop=1&controls=0&title=0&byline=0&portrait=0`}
+            title="Video principal Portfolio"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            allowFullScreen
+            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+          />
+          <button
+            onClick={toggleMuted}
+            aria-label={muted ? 'Activar sonido' : 'Silenciar'}
+            style={{
+              position: 'absolute', bottom: 16, right: 16,
+              width: 40, height: 40, borderRadius: '50%',
+              border: '1px solid rgba(240,237,227,0.5)',
+              background: 'rgba(0,0,0,0.4)',
+              backdropFilter: 'blur(8px)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease, background 0.2s ease',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.08)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+          >
+            {muted ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0ede3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#f0ede3" stroke="none" />
+                <line x1="23" y1="9" x2="17" y2="15" />
+                <line x1="17" y1="9" x2="23" y2="15" />
+              </svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0ede3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#f0ede3" stroke="none" />
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+              </svg>
+            )}
+          </button>
+        </>
+      ) : (
+        <button
+          onClick={handleManualPlay}
+          aria-label="Reproducir video principal"
+          className="relative flex items-center justify-center"
+          style={{
+            width: '100%', height: '100%',
+            border: 'none', padding: 0, cursor: 'pointer',
+            backgroundImage: `linear-gradient(rgba(6,26,26,0.25), rgba(6,26,26,0.4)), url(https://vumbnail.com/${MAIN_VIDEO_ID}.jpg)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <span
+            style={{
+              width: 72, height: 72, borderRadius: '50%',
+              border: '2px solid rgba(240,237,227,0.8)',
+              background: 'rgba(0,0,0,0.35)',
+              backdropFilter: 'blur(8px)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.35)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.5)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.35)';
+            }}
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#f0ede3" style={{ marginLeft: 4 }}>
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+        </button>
+      )}
     </div>
   );
 }
@@ -273,6 +419,11 @@ export default function Portfolio() {
             </div>
           </Reveal>
         </div>
+
+        {/* Video principal */}
+        <Reveal delay={0.15}>
+          <MainVideo />
+        </Reveal>
 
         {/* Grilla — 5 columnas */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5" style={{ gap: 18 }}>
