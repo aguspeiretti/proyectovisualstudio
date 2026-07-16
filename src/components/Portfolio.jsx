@@ -9,6 +9,14 @@ const VIDEOS = [
   { id: '1210526972', titulo: 'Porque Mevino' },
   { id: '1210526974', titulo: 'Pata de Pulpo' },
   { id: '1210526973', titulo: 'Aenergetic' },
+  { id: '1210529777', titulo: 'Pinza Gazuza' },
+  { id: '1210529779', titulo: 'Mostaza Bodeguita' },
+  { id: '1210529780', titulo: 'Soplete Mevino' },
+  { id: '1210529778', titulo: 'Copa en Movimiento' },
+  { id: '1210529831', titulo: 'Pasta Ilveneto' },
+  { id: '1210529834', titulo: 'Perfumarte' },
+  { id: '1210529836', titulo: 'Boxeo Juampi' },
+  { id: '1210529838', titulo: 'Fuego Vlue' },
 ];
 
 const CATEGORIAS = ['Todos', ...new Set(VIDEOS.filter(v => v.categoria).map(v => v.categoria))];
