@@ -408,7 +408,7 @@ export default function Portfolio() {
         {/* ── Derecha — Mini grilla ── */}
         <div
           className="w-full md:w-[35%] flex flex-col justify-center bg-cream"
-          style={{ padding: 'clamp(48px,8vh,80px) clamp(24px,5vw,72px)' }}
+          style={{ padding: 'clamp(48px,8vh,80px) clamp(20px,4vw,48px)' }}
         >
           <Reveal>
             <p className="font-mozilla font-bold uppercase mb-3"
@@ -431,7 +431,7 @@ export default function Portfolio() {
             </Reveal>
           )}
 
-          <div className="grid grid-cols-3" style={{ gap: 10 }}>
+          <div className="grid grid-cols-4" style={{ gap: 8 }}>
             {filtrados.map((video, i) => (
               <Reveal key={video.id} delay={Math.min(i * 0.05, 0.4)}>
                 <VideoCard video={video} onPlay={() => setModalVideo(video)} />
