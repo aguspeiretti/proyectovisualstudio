@@ -117,7 +117,7 @@ export default function Nosotros() {
             ref={videoCardRef}
             className="relative"
             style={{
-              width: 'clamp(260px,78%,820px)',
+              width: 'clamp(260px,88%,940px)',
               aspectRatio: '16/9',
               borderRadius: 20,
               overflow: 'hidden',
