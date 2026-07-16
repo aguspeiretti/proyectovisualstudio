@@ -378,11 +378,12 @@ export default function Portfolio() {
     <section id="portfolio" className="md:min-h-screen pt-14">
       <div className="flex flex-col md:flex-row" style={{ minHeight: 'calc(100vh - 56px)' }}>
 
-        {/* ── Izquierda — Video principal ── */}
+        {/* ── Izquierda — Título + Video principal ── */}
         <div
-          className="w-full md:w-[65%] relative flex flex-col items-center justify-center overflow-hidden"
+          className="w-full md:w-[65%] relative flex flex-col overflow-hidden"
           style={{
             minHeight: 320,
+            paddingTop: 'clamp(32px,6vh,56px)',
             background: 'linear-gradient(150deg, #0c3838 0%, #072424 55%, #061a1a 100%)',
           }}
         >
@@ -400,9 +401,24 @@ export default function Portfolio() {
             animation: 'drift 20s ease-in-out infinite reverse',
           }} />
 
-          <Reveal>
-            <MainVideo />
+          <Reveal className="relative mb-7">
+            <div style={{ padding: '0 clamp(24px,5vw,72px)' }}>
+              <p className="font-mozilla font-bold uppercase mb-3"
+                 style={{ fontSize: '0.68rem', letterSpacing: '0.26em', color: '#e8621a' }}>
+                Portfolio
+              </p>
+              <h2 className="font-mozilla font-bold text-cream"
+                  style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', letterSpacing: '0.01em', lineHeight: 1.15 }}>
+                Nuestro <span style={{ color: '#e8621a' }}>trabajo</span> habla por sí solo
+              </h2>
+            </div>
           </Reveal>
+
+          <div className="relative flex flex-1 items-center justify-center">
+            <Reveal delay={0.1} className="w-full flex justify-center">
+              <MainVideo />
+            </Reveal>
+          </div>
         </div>
 
         {/* ── Derecha — Mini grilla ── */}
@@ -410,17 +426,6 @@ export default function Portfolio() {
           className="w-full md:w-[35%] flex flex-col justify-center bg-cream"
           style={{ padding: 'clamp(48px,8vh,80px) clamp(20px,4vw,48px)' }}
         >
-          <Reveal>
-            <p className="font-mozilla font-bold uppercase mb-3"
-               style={{ fontSize: '0.65rem', letterSpacing: '0.26em', color: '#e8621a' }}>
-              Portfolio
-            </p>
-            <h2 className="font-mozilla font-bold mb-8"
-                style={{ fontSize: 'clamp(2rem,3.5vw,3rem)', letterSpacing: '0.02em', color: '#0c3838', lineHeight: 1.1 }}>
-              Nuestro <span style={{ color: '#e8621a' }}>trabajo</span> habla por sí solo
-            </h2>
-          </Reveal>
-
           {CATEGORIAS.length > 1 && (
             <Reveal delay={0.08}>
               <div className="flex flex-wrap" style={{ gap: 8, marginBottom: 24 }} role="group" aria-label="Filtrar categoría">
