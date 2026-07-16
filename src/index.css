@@ -81,7 +81,7 @@ button {
   cursor: pointer;
   border: none;
   background: none;
-  font: inherit;
+  font-family: inherit;
 }
 
 input, textarea {
