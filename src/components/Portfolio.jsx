@@ -155,6 +155,11 @@ function MainVideo() {
     player.setMuted(next).then(() => setMuted(next));
   };
 
+  const handleFullscreen = () => {
+    const player = playerRef.current;
+    if (player) player.requestFullscreen();
+  };
+
   return (
     <div
       ref={cardRef}
@@ -178,8 +183,16 @@ function MainVideo() {
             allowFullScreen
             style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
           />
+          <div
+            onClick={handleFullscreen}
+            role="button"
+            tabIndex={0}
+            aria-label="Ver en pantalla completa"
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleFullscreen(); }}
+            style={{ position: 'absolute', inset: 0, cursor: 'pointer', zIndex: 1 }}
+          />
           <button
-            onClick={toggleMuted}
+            onClick={e => { e.stopPropagation(); toggleMuted(); }}
             aria-label={muted ? 'Activar sonido' : 'Silenciar'}
             style={{
               position: 'absolute', bottom: 16, right: 16,
@@ -190,6 +203,7 @@ function MainVideo() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               cursor: 'pointer',
               transition: 'transform 0.2s ease, background 0.2s ease',
+              zIndex: 2,
             }}
             onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.08)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
