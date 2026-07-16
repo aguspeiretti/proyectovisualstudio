@@ -5,20 +5,13 @@ import Reveal from './Reveal';
 const MAIN_VIDEO_ID = '1210525399';
 
 const VIDEOS = [
-  { id: '1206134514', categoria: 'Gastronomía' },
-  { id: '1206134475', categoria: 'Gastronomía' },
-  { id: '1206134892', categoria: 'Coctelería' },
-  { id: '1206134935', categoria: 'Coctelería' },
-  { id: '1206134831', categoria: 'Gastronomía' },
-  { id: '1206134778', categoria: 'Gastronomía' },
-  { id: '1206134705', categoria: 'Gastronomía' },
-  { id: '1206134662', categoria: 'Coctelería' },
-  { id: '1206134626', categoria: 'Gastronomía' },
-  { id: '1206134588', categoria: 'Gastronomía' },
-  { id: '1206134553', categoria: 'Gastronomía' },
+  { id: '1210526978', titulo: 'Loritos' },
+  { id: '1210526972', titulo: 'Porque Mevino' },
+  { id: '1210526974', titulo: 'Pata de Pulpo' },
+  { id: '1210526973', titulo: 'Aenergetic' },
 ];
 
-const CATEGORIAS = ['Todos', ...new Set(VIDEOS.map(v => v.categoria))];
+const CATEGORIAS = ['Todos', ...new Set(VIDEOS.filter(v => v.categoria).map(v => v.categoria))];
 
 /* ── Modal ── */
 function VideoModal({ video, onClose }) {
@@ -45,7 +38,7 @@ function VideoModal({ video, onClose }) {
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label={`Video de ${video.categoria}`}
+      aria-label={`Video ${video.titulo || video.categoria}`}
     >
       <div
         style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
@@ -87,11 +80,11 @@ function VideoModal({ video, onClose }) {
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
-            title={`Video ${video.categoria}`}
+            title={`Video ${video.titulo || video.categoria}`}
           />
         </div>
 
-        {/* Categoría */}
+        {/* Título / categoría */}
         <span
           className="font-mozilla font-bold uppercase"
           style={{
@@ -99,7 +92,7 @@ function VideoModal({ video, onClose }) {
             color: 'rgba(240,237,227,0.5)',
           }}
         >
-          {video.categoria}
+          {video.titulo || video.categoria}
         </span>
       </div>
     </div>
@@ -300,7 +293,7 @@ function VideoCard({ video, onPlay }) {
       {/* Thumbnail */}
       <img
         src={`https://vumbnail.com/${video.id}.jpg`}
-        alt={video.categoria}
+        alt={video.titulo || video.categoria}
         loading="lazy"
         style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
@@ -319,22 +312,24 @@ function VideoCard({ video, onPlay }) {
       }} />
 
       {/* Badge */}
-      <div style={{
-        position: 'absolute', bottom: 14, left: 14,
-        background: 'rgba(232,98,26,0.16)',
-        border: '1px solid rgba(232,98,26,0.32)',
-        borderRadius: 100, padding: '4px 12px',
-      }}>
-        <span className="font-mozilla font-bold uppercase"
-              style={{ fontSize: '0.52rem', letterSpacing: '0.18em', color: '#ff8a3d' }}>
-          {video.categoria}
-        </span>
-      </div>
+      {video.categoria && (
+        <div style={{
+          position: 'absolute', bottom: 14, left: 14,
+          background: 'rgba(232,98,26,0.16)',
+          border: '1px solid rgba(232,98,26,0.32)',
+          borderRadius: 100, padding: '4px 12px',
+        }}>
+          <span className="font-mozilla font-bold uppercase"
+                style={{ fontSize: '0.52rem', letterSpacing: '0.18em', color: '#ff8a3d' }}>
+            {video.categoria}
+          </span>
+        </div>
+      )}
 
       {/* Play overlay */}
       <button
         onClick={onPlay}
-        aria-label={`Ver video de ${video.categoria}`}
+        aria-label={`Ver video ${video.titulo || video.categoria}`}
         style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%',
           background: 'transparent', border: 'none', cursor: 'pointer',
@@ -411,13 +406,15 @@ export default function Portfolio() {
             </h2>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <div className="flex flex-wrap" style={{ gap: 8 }} role="group" aria-label="Filtrar categoría">
-              {CATEGORIAS.map(cat => (
-                <FilterPill key={cat} label={cat} active={activa === cat} onClick={() => setActiva(cat)} />
-              ))}
-            </div>
-          </Reveal>
+          {CATEGORIAS.length > 1 && (
+            <Reveal delay={0.1}>
+              <div className="flex flex-wrap" style={{ gap: 8 }} role="group" aria-label="Filtrar categoría">
+                {CATEGORIAS.map(cat => (
+                  <FilterPill key={cat} label={cat} active={activa === cat} onClick={() => setActiva(cat)} />
+                ))}
+              </div>
+            </Reveal>
+          )}
         </div>
 
         {/* Video principal */}
